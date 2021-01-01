@@ -1,0 +1,7 @@
+.button_setting {
+    -fx-background-color:white;
+}
+
+.menu_box:hover {
+    -fx-background-color: linear-gradient(to right top, #051937, #00476c, #007981, #00a96c, #a8cf45);
+}

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DashboardController">
+   <top>
+      <HBox prefHeight="120.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="1174.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="600.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="570.0" prefWidth="220.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
+               <children>
+                  <HBox fx:id="hboxHome" onMouseClicked="#handleHome" prefHeight="50.0" prefWidth="214.0" stylesheets="@../resources/dashboard.css">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="270.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/dashboard.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/images/home-solid.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label text="Nhà" textFill="WHITE">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="30.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children></HBox>
+                     </children>
+                     <padding>
+                        <Insets left="7.0" />
+                     </padding>
+                  </HBox>
+                  <HBox fx:id="adminHbox" onMouseClicked="#handleAdminHbox" prefHeight="50.0" prefWidth="214.0" stylesheets="@../resources/dashboard.css">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="270.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/dashboard.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/images/user-tie-solid.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label text="Admin" textFill="WHITE">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="30.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="7.0" />
+                     </padding>
+                  </HBox>
+                  <VBox fx:id="adminVbox" prefHeight="210.0" prefWidth="270.0" stylesheets="@../resources/dashboard.css">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="214.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/dashboard.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/images/bed-solid.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label text="Quản lý phòng" textFill="WHITE">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="214.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/dashboard.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/images/users-solid.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label text="Quản lý khách hàng" textFill="WHITE">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="staffHbox" alignment="CENTER_LEFT" onMouseClicked="#handleStaff" prefHeight="50.0" prefWidth="214.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/dashboard.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/images/user-solid.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label text="Quản lý nhân viên" textFill="WHITE">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="214.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/dashboard.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/images/utensils-solid.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label text="Quản lý dịch vụ" textFill="WHITE">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </VBox>
+                  <HBox prefHeight="50.0" prefWidth="221.0" stylesheets="@../resources/dashboard.css">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="270.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/dashboard.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/images/ticket-alt-solid.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label text="Đặt phòng" textFill="WHITE">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="30.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="7.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="50.0" prefWidth="214.0" stylesheets="@../resources/dashboard.css">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="270.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/dashboard.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/images/money-check-solid.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label text="Trả phòng" textFill="WHITE">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="30.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="7.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="15.0" right="15.0" top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <BorderPane fx:id="borderpaneDashboard" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 20;" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="20.0" right="20.0" top="10.0" />
+         </BorderPane.margin>
+      </BorderPane>
+   </center>
+</BorderPane>
