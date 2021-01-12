@@ -108,12 +108,11 @@ public class AlertMaker {
     }
 
     public static void showMaterialDialog(StackPane root, List<JFXButton> controls, String header, String body) {
-        BoxBlur blur = new BoxBlur(3, 3, 3);
         if (controls.isEmpty()) {
             controls.add(new JFXButton("Okay"));
         }
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
-        JFXDialog dialog = new JFXDialog(root, dialogLayout, JFXDialog.DialogTransition.TOP);
+        JFXDialog dialog = new JFXDialog(root, dialogLayout, JFXDialog.DialogTransition.CENTER);
 
         controls.forEach(controlButton -> {
             controlButton.getStyleClass().add("dialog-button");

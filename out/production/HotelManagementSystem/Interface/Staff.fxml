@@ -1,19 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StaffController">
+<AnchorPane prefHeight="600.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StaffController">
    <children>
-      <TableView fx:id="tableStaff" layoutX="14.0" layoutY="14.0" prefHeight="350.0" prefWidth="600.0">
-         <columns>
-            <TableColumn fx:id="colStaffID" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="colUsername" prefWidth="150.0" text="Tên Đăng Nhập" />
-            <TableColumn fx:id="colStaffName" prefWidth="150.0" text="Tên Nhân Viên" />
-            <TableColumn fx:id="colType" minWidth="0.0" prefWidth="100.0" text="Chức Vụ" />
-            <TableColumn fx:id="colSalary" prefWidth="100.0" text="Lương" />
-         </columns>
-      </TableView>
+      <TabPane prefHeight="600.0" prefWidth="890.0" stylesheets="@../resources/style/tabpane.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Quản Lý Nhân Viên">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <TableView fx:id="tableStaff" layoutX="15.0" layoutY="15.0" onMouseClicked="#handleStaffTable" prefHeight="350.0" prefWidth="600.0" stylesheets="@../resources/style/tableview.css">
+                           <columns>
+                              <TableColumn fx:id="colStaffID" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="colUsername" prefWidth="110.0" text="Tên Đăng Nhập" />
+                              <TableColumn fx:id="colStaffName" prefWidth="220.0" text="Tên Nhân Viên" />
+                              <TableColumn fx:id="colType" minWidth="0.0" prefWidth="70.0" text="Chức Vụ" />
+                              <TableColumn fx:id="colSalary" prefWidth="120.0" text="Lương" />
+                           </columns>
+                        </TableView>
+                        <JFXButton fx:id="btnUpdateStaff" layoutX="15.0" layoutY="380.0" onMouseClicked="#handleStaffUpdate" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="SỬA NHÂN VIÊN" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnDeleteStaff" layoutX="180.0" layoutY="380.0" onMouseClicked="#handleStaffDelete" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="XÓA NHÂN VIÊN" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <AnchorPane layoutX="630.0" layoutY="15.0" prefHeight="428.0" prefWidth="260.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
+                           <children>
+                              <JFXComboBox fx:id="cbType" focusColor="#40a85d" layoutX="9.0" layoutY="275.0" prefHeight="40.0" prefWidth="230.0" promptText="Chức Vụ" unFocusColor="#17e52f" AnchorPane.topAnchor="275.0" />
+                              <JFXTextField fx:id="txtId" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="35.0" prefHeight="40.0" prefWidth="230.0" promptText="ID" unFocusColor="#17e52f" AnchorPane.topAnchor="35.0" />
+                              <JFXTextField fx:id="txtUsername" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="195.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Đăng Nhập" unFocusColor="#17e52f" AnchorPane.topAnchor="195.0" />
+                              <JFXTextField fx:id="txtStaffName" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="115.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Nhân Viên" unFocusColor="#17e52f" AnchorPane.topAnchor="115.0" />
+                              <JFXTextField fx:id="txtSalary" focusColor="#40a85d" labelFloat="true" layoutX="4.0" layoutY="355.0" prefHeight="40.0" prefWidth="230.0" promptText="Lương" unFocusColor="#17e52f" AnchorPane.topAnchor="355.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Quản Lý Chức Vụ">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <TableView fx:id="tableStaff1" layoutX="15.0" layoutY="15.0" onMouseClicked="#handleStaffTable" prefHeight="350.0" prefWidth="600.0" stylesheets="@../resources/style/tableview.css">
+                           <columns>
+                              <TableColumn fx:id="colDutyID" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="colDutyName" prefWidth="300.0" text="Tên Chức Vụ" />
+                              <TableColumn fx:id="colDutySalary" prefWidth="150.0" text="Lương" />
+                           </columns>
+                        </TableView>
+                        <AnchorPane layoutX="630.0" layoutY="15.0" prefHeight="350.0" prefWidth="260.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
+                           <children>
+                              <JFXTextField fx:id="txtDutyID" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="35.0" prefHeight="40.0" prefWidth="230.0" promptText="ID" unFocusColor="#17e52f" AnchorPane.topAnchor="35.0" />
+                              <JFXTextField fx:id="txtDutyName" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="115.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Chức Vụ" unFocusColor="#17e52f" AnchorPane.topAnchor="115.0" />
+                              <JFXTextField fx:id="txtDutySalary" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="194.0" prefHeight="40.0" prefWidth="230.0" promptText="Lương" unFocusColor="#17e52f" AnchorPane.topAnchor="195.0" />
+                           </children>
+                        </AnchorPane>
+                        <JFXButton fx:id="btnDutyDelete" layoutX="345.0" layoutY="380.0" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="XÓA CHỨC VỤ" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnDutyOpen" layoutX="15.0" layoutY="380.0" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="THÊM CHỨC VỤ" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnDutyUpdate" layoutX="180.0" layoutY="380.0" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="EDIT CHỨC VỤ" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <StackPane fx:id="stackpaneStaff" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="200.0" />
    </children>
 </AnchorPane>

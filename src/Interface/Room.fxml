@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPaneRoom" prefHeight="600.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RoomController">
+   <children>
+      <TabPane prefHeight="600.0" prefWidth="890.0" stylesheets="@../resources/style/tabpane.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Quản lý Phòng">
+               <content>
+                  <AnchorPane>
+                     <children>
+                        <AnchorPane layoutX="630.0" layoutY="15.0" prefHeight="530.0" prefWidth="260.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
+                           <children>
+                              <JFXComboBox fx:id="cbRoomType" focusColor="#40a85d" layoutX="9.0" layoutY="275.0" prefHeight="40.0" prefWidth="230.0" promptText="Loại Phòng" unFocusColor="#17e52f" AnchorPane.topAnchor="275.0" />
+                              <JFXTextField fx:id="txtRoomID" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="35.0" prefHeight="40.0" prefWidth="230.0" promptText="ID" unFocusColor="#17e52f" AnchorPane.topAnchor="35.0" />
+                              <JFXTextField fx:id="txtRoomStatus" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="195.0" onMouseClicked="#handleRoomStatus" prefHeight="40.0" prefWidth="230.0" promptText="Tình Trạng" unFocusColor="#17e52f" AnchorPane.topAnchor="195.0" />
+                              <JFXTextField fx:id="txtRoomName" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="115.0" onMouseClicked="#handleRoomName" prefHeight="40.0" prefWidth="230.0" promptText="Tên Phòng" unFocusColor="#17e52f" AnchorPane.topAnchor="115.0" />
+                              <JFXTextField fx:id="txtRoomPrice" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="435.0" prefHeight="40.0" prefWidth="230.0" promptText="Giá Phòng" unFocusColor="#17e52f" AnchorPane.topAnchor="435.0" />
+                              <JFXComboBox fx:id="cbRoomCapacity" focusColor="#40a85d" layoutX="9.0" layoutY="355.0" prefHeight="40.0" prefWidth="230.0" promptText="Sức Chứa" unFocusColor="#17e52f" AnchorPane.topAnchor="355.0" />
+                           </children>
+                        </AnchorPane>
+                        <JFXButton fx:id="btnRoomEdit" layoutX="180.0" layoutY="380.0" onMouseClicked="#handleRoomUpdate" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="EDIT PHÒNG" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnRoomDelete" layoutX="345.0" layoutY="380.0" onMouseClicked="#handleRoomDelete" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="XÓA PHÒNG" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnRoomAdd" layoutX="15.0" layoutY="380.0" onMouseClicked="#handleRoomOpen" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="THÊM PHÒNG" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <TableView fx:id="tableRoom" layoutX="15.0" layoutY="15.0" onMouseClicked="#handleRoomTable" prefHeight="350.0" prefWidth="600.0" stylesheets="@../resources/style/tableview.css">
+                           <columns>
+                              <TableColumn fx:id="colRoomID" prefWidth="45.0" text="ID" />
+                              <TableColumn fx:id="colRoomName" prefWidth="110.0" text="Tên Phòng" />
+                              <TableColumn fx:id="colRoomStatus" prefWidth="120.0" text="Tình Trạng" />
+                              <TableColumn fx:id="colRoomType_Room" minWidth="0.0" prefWidth="100.0" text="Loại Phòng" />
+                              <TableColumn fx:id="colRoomCapacity_Room" prefWidth="100.0" text="Số Giường" />
+                              <TableColumn fx:id="colRoomPrice" prefWidth="134.4000244140625" text="Giá Phòng" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+          <Tab text="Quản lý Loại Phòng">
+            <content>
+              <AnchorPane>
+                     <children>
+                        <TableView fx:id="tableRoomType" layoutX="15.0" layoutY="15.0" onMouseClicked="#handleRoomTypeTable" prefHeight="350.0" prefWidth="600.0" stylesheets="@../resources/style/tableview.css">
+                           <columns>
+                              <TableColumn fx:id="colRoomTypeID" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="colRoomTypeName" prefWidth="220.0" text="Tên Loại Phòng" />
+                              <TableColumn fx:id="colRoomTypePrice" prefWidth="200.0" text="Giá Loại Phòng" />
+                           </columns>
+                        </TableView>
+                        <AnchorPane layoutX="630.0" layoutY="15.0" prefHeight="350.0" prefWidth="260.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
+                           <children>
+                              <JFXTextField fx:id="txtRoomTypeID" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="35.0" prefHeight="40.0" prefWidth="230.0" promptText="ID" unFocusColor="#17e52f" AnchorPane.topAnchor="35.0" />
+                              <JFXTextField fx:id="txtRoomTypeName" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="115.0" onMouseClicked="#handleRoomTypeName" prefHeight="40.0" prefWidth="230.0" promptText="Tên Loại Phòng" unFocusColor="#17e52f" AnchorPane.topAnchor="115.0" />
+                              <JFXTextField fx:id="txtRoomTypePrice" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="275.0" onMouseClicked="#handleRoomTypePrice" prefHeight="40.0" prefWidth="230.0" promptText="Giá Loại Phòng" unFocusColor="#17e52f" AnchorPane.topAnchor="195.0" />
+                           </children>
+                        </AnchorPane>
+                        <JFXButton fx:id="btnRoomTypeDelete" layoutX="365.0" layoutY="380.0" onMouseClicked="#handleRoomTypeDelete" prefHeight="50.0" prefWidth="160.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="XÓA LOẠI PHÒNG" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnRoomTypeAddOpen" layoutX="15.0" layoutY="380.0" onMouseClicked="#handleRoomTypeOpen" prefHeight="50.0" prefWidth="160.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="THÊM LOẠI PHÒNG" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnRoomTypeUpdate" layoutX="190.0" layoutY="380.0" onMouseClicked="#handleRoomTypeUpdate" prefHeight="50.0" prefWidth="160.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="EDIT LOẠI PHÒNG" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Quản lý Sức Chứa">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="btnRoomCapacityDelete" layoutX="365.0" layoutY="380.0" onMouseClicked="#handleRoomCapacityDelete" prefHeight="50.0" prefWidth="160.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="XÓA SỐ GIƯỜNG" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnRoomCapacityAddOpen" layoutX="15.0" layoutY="380.0" onMouseClicked="#handleRoomCapacityOpen" prefHeight="50.0" prefWidth="160.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="THÊM SỐ GIƯỜNG" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnRoomCapacityUpdate" layoutX="190.0" layoutY="380.0" onMouseClicked="#handleRoomCapacityUpdate" prefHeight="50.0" prefWidth="160.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="EDIT SỐ GIƯỜNG" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <AnchorPane layoutX="630.0" layoutY="15.0" prefHeight="350.0" prefWidth="260.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
+                           <children>
+                              <JFXTextField fx:id="txtRoomCapacityID" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="35.0" prefHeight="40.0" prefWidth="230.0" promptText="ID" unFocusColor="#17e52f" AnchorPane.topAnchor="35.0" />
+                              <JFXTextField fx:id="txtRoomCapacity" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="115.0" onMouseClicked="#handleRoomCapacity" prefHeight="40.0" prefWidth="230.0" promptText="Số Giường" unFocusColor="#17e52f" AnchorPane.topAnchor="115.0" />
+                              <JFXTextField fx:id="txtRoomCapacityPrice" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="207.0" onMouseClicked="#handleRoomCapacityPrice" prefHeight="40.0" prefWidth="230.0" promptText="Giá phụ thu" unFocusColor="#17e52f" AnchorPane.topAnchor="195.0" />
+                           </children>
+                        </AnchorPane>
+                        <TableView fx:id="tableRoomCapacity" layoutX="15.0" layoutY="15.0" onMouseClicked="#handleRoomCapacityTable" prefHeight="350.0" prefWidth="600.0" stylesheets="@../resources/style/tableview.css">
+                           <columns>
+                              <TableColumn fx:id="colRoomCapacityID" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="colRoomCapacity" prefWidth="110.0" text="Số Giường" />
+                              <TableColumn fx:id="colRoomCapacityPrice" prefWidth="120.0" text="Giá phụ thu" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <StackPane fx:id="stackpaneRoom" prefHeight="0.0" prefWidth="910.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="200.0" />
+   </children>
+</AnchorPane>

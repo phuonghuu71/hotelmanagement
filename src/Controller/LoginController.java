@@ -1,6 +1,7 @@
 package Controller;
 
-import Process.Staff;
+import Process.StaffProcess;
+import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -37,7 +38,7 @@ public class LoginController implements Initializable {
     public Label lblExit;
     public StackPane spConfirm;
     Preferences preferences;
-    Staff getStaff = new Staff();
+    StaffProcess getStaffProcess = new StaffProcess();
     public Button btnLogin;
     public TextField txtUsername;
     public PasswordField txtPassword;
@@ -45,7 +46,7 @@ public class LoginController implements Initializable {
     public void handleLogin(ActionEvent actionEvent) throws SQLException, IOException {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
-        ResultSet login = getStaff.Login(username, password);
+        ResultSet login = getStaffProcess.Login(username, password);
         int valid = 0;
         while(login.next()) {
             valid = Integer.parseInt(login.getString(1));
@@ -111,6 +112,7 @@ public class LoginController implements Initializable {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Quản lý Khách Sạn");
         stage.setScene(scene);
+        new FadeIn(root).play();
         stage.show();
     }
 
@@ -137,7 +139,6 @@ public class LoginController implements Initializable {
     }
 
     public void handleExit(MouseEvent mouseEvent) {
-
         JFXButton yes = new AlertMaker().customBtn("Có");
         yes.setOnAction(new EventHandler<ActionEvent>() {
             @Override
