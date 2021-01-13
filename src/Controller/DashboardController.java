@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -33,12 +34,29 @@ public class DashboardController implements Initializable {
     public Circle circleOff;
     public BorderPane borderpaneRoot;
     public StackPane stackpaneDashboard;
+    public Label lbName;
+    public HBox bookingHbox;
+
+
+    private LoginController loginController;
+
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         adminVbox.setVisible(false);
         adminVbox.setManaged(false);
         customPowerOff();
+    }
+
+    void getUsername(String text) {
+        lbName.setText(text);
+    }
+
+    void setAdminControl() {
+        adminHbox.setDisable(true);
     }
 
     //hide sub menu & show sub menu
@@ -121,5 +139,9 @@ public class DashboardController implements Initializable {
 
     public void handleRoom(MouseEvent mouseEvent) {
         loadUI("Room");
+    }
+
+    public void handleBookingHbox(MouseEvent mouseEvent) {
+        loadUI("Booking");
     }
 }

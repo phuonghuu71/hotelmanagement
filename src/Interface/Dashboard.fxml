@@ -20,7 +20,7 @@
          <top>
             <HBox prefHeight="110.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="1160.0" style="-fx-background-color: linear-gradient(to right, #e8f5e9, #ceeec8, #bbe5a1, #afdb77, #a8cf45); -fx-background-radius: 20;">
+                  <HBox prefHeight="100.0" prefWidth="1160.0" style="-fx-background-color: linear-gradient(to right bottom, #bddec7, #9cccb3, #78baa2, #4fa894, #009688);; -fx-background-radius: 20;">
                      <children>
                         <HBox prefHeight="90.0" prefWidth="737.0">
                            <children>
@@ -36,18 +36,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="400.0">
                            <children>
-                              <Circle radius="28.0" stroke="#ffffff00" strokeType="INSIDE">
-                                 <fill>
-                                    <LinearGradient endX="1.0" endY="1.0">
-                                       <stops>
-                                          <Stop color="#0bd422" />
-                                          <Stop color="#2b22a7" offset="0.9969465648854963" />
-                                          <Stop color="#2b22a7" offset="1.0" />
-                                       </stops>
-                                    </LinearGradient>
-                                 </fill>
-                              </Circle>
-                              <Label prefHeight="30.0" prefWidth="261.0" text="Phạm Nguyễn Hữu Phương" textFill="WHITE">
+                              <Label fx:id="lbName" prefHeight="30.0" prefWidth="261.0" text="Phạm Nguyễn Hữu Phương" textFill="WHITE">
                                  <font>
                                     <Font name="SansSerif Regular" size="20.0" />
                                  </font>
@@ -82,14 +71,14 @@
          <left>
             <VBox prefHeight="600.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="580.0" prefWidth="270.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
+                  <VBox prefHeight="580.0" prefWidth="270.0" style="-fx-background-color: #009688; -fx-background-radius: 20;">
                      <children>
                         <HBox fx:id="hboxHome" onMouseClicked="#handleHome" prefHeight="50.0" prefWidth="214.0" stylesheets="@../resources/style/dashboard.css">
                            <VBox.margin>
                               <Insets top="30.0" />
                            </VBox.margin>
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="260.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="270.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
                                  <children>
                                     <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -116,7 +105,7 @@
                         </HBox>
                         <HBox fx:id="adminHbox" onMouseClicked="#handleAdminHbox" prefHeight="50.0" prefWidth="214.0" stylesheets="@../resources/style/dashboard.css">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="260.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="270.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
                                  <children>
                                     <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -240,9 +229,9 @@
                               <Insets left="30.0" />
                            </padding>
                         </VBox>
-                        <HBox prefHeight="50.0" prefWidth="221.0" stylesheets="@../resources/style/dashboard.css">
+                        <HBox fx:id="bookingHbox" onMouseClicked="#handleBookingHbox" prefHeight="50.0" prefWidth="221.0" stylesheets="@../resources/style/dashboard.css">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="260.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
+                              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="270.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
                                  <children>
                                     <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -252,9 +241,9 @@
                                           <Insets left="10.0" />
                                        </HBox.margin>
                                     </ImageView>
-                                    <Label text="Đặt phòng" textFill="WHITE">
+                                    <Label text="Đặt phòng (Reserve)" textFill="WHITE">
                                        <font>
-                                          <Font name="SansSerif Regular" size="30.0" />
+                                          <Font name="SansSerif Regular" size="20.0" />
                                        </font>
                                        <HBox.margin>
                                           <Insets left="5.0" />
@@ -269,7 +258,7 @@
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="214.0" stylesheets="@../resources/style/dashboard.css">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="260.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
+                              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="270.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
                                  <children>
                                     <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -279,9 +268,36 @@
                                           <Insets left="10.0" />
                                        </HBox.margin>
                                     </ImageView>
-                                    <Label text="Trả phòng" textFill="WHITE">
+                                    <Label text="Nhận Phòng (Check In)" textFill="WHITE">
                                        <font>
-                                          <Font name="SansSerif Regular" size="30.0" />
+                                          <Font name="SansSerif Regular" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="7.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="50.0" prefWidth="214.0" stylesheets="@../resources/style/dashboard.css">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="270.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../resources/images/money-check-solid.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <Label text="Trả Phòng (Check Out)" textFill="WHITE">
+                                       <font>
+                                          <Font name="SansSerif Regular" size="18.0" />
                                        </font>
                                        <HBox.margin>
                                           <Insets left="5.0" />

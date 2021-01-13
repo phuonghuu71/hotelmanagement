@@ -13,6 +13,12 @@ public class RoomProcess {
         String sql = "SELECT MAPHONG, TENPHONG, TINHTRANG, TENLOAIPHONG, SOGIUONG, GIALOAIPHONG, GIASUCCHUA FROM PHONG A, LOAIPHONG B, SUCCHUA C WHERE A.MALOAIPHONG = B.MALOAIPHONG AND A.MASUCCHUA = C.MASUCCHUA";
         return conn.LoadData(sql);
     }
+    public ResultSet getRoomEmptyListByRoomTypeIDAndRoomCapacityID(String roomTypeID, String roomCapacityID) throws SQLException {
+        conn.connectSQL();
+        String sql = "SELECT TENPHONG FROM PHONG WHERE MALOAIPHONG = '"+roomTypeID+"' AND MASUCCHUA = '"+roomCapacityID+"' AND TINHTRANG = N'Còn Phòng'";
+        return conn.LoadData(sql);
+    }
+
     public void deleteRoom(String id) throws SQLException {
         conn.connectSQL();
         String sql = "DELETE FROM PHONG WHERE MAPHONG = '"+id+"'";

@@ -43,7 +43,7 @@
                               <JFXComboBox fx:id="cbType" focusColor="#40a85d" layoutX="9.0" layoutY="275.0" prefHeight="40.0" prefWidth="230.0" promptText="Chức Vụ" unFocusColor="#17e52f" AnchorPane.topAnchor="275.0" />
                               <JFXTextField fx:id="txtId" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="35.0" prefHeight="40.0" prefWidth="230.0" promptText="ID" unFocusColor="#17e52f" AnchorPane.topAnchor="35.0" />
                               <JFXTextField fx:id="txtUsername" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="195.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Đăng Nhập" unFocusColor="#17e52f" AnchorPane.topAnchor="195.0" />
-                              <JFXTextField fx:id="txtStaffName" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="115.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Nhân Viên" unFocusColor="#17e52f" AnchorPane.topAnchor="115.0" />
+                              <JFXTextField fx:id="txtStaffName" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="115.0" onMouseClicked="#handleStaffName" prefHeight="40.0" prefWidth="230.0" promptText="Tên Nhân Viên" unFocusColor="#17e52f" AnchorPane.topAnchor="115.0" />
                               <JFXTextField fx:id="txtSalary" focusColor="#40a85d" labelFloat="true" layoutX="4.0" layoutY="355.0" prefHeight="40.0" prefWidth="230.0" promptText="Lương" unFocusColor="#17e52f" AnchorPane.topAnchor="355.0" />
                            </children>
                         </AnchorPane>
@@ -55,7 +55,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
-                        <TableView fx:id="tableStaff1" layoutX="15.0" layoutY="15.0" onMouseClicked="#handleStaffTable" prefHeight="350.0" prefWidth="600.0" stylesheets="@../resources/style/tableview.css">
+                        <TableView fx:id="tableDuty" layoutX="15.0" layoutY="15.0" onMouseClicked="#handleStaffDutyTable" prefHeight="350.0" prefWidth="600.0" stylesheets="@../resources/style/tableview.css">
                            <columns>
                               <TableColumn fx:id="colDutyID" prefWidth="75.0" text="ID" />
                               <TableColumn fx:id="colDutyName" prefWidth="300.0" text="Tên Chức Vụ" />
@@ -65,21 +65,21 @@
                         <AnchorPane layoutX="630.0" layoutY="15.0" prefHeight="350.0" prefWidth="260.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
                            <children>
                               <JFXTextField fx:id="txtDutyID" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="35.0" prefHeight="40.0" prefWidth="230.0" promptText="ID" unFocusColor="#17e52f" AnchorPane.topAnchor="35.0" />
-                              <JFXTextField fx:id="txtDutyName" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="115.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Chức Vụ" unFocusColor="#17e52f" AnchorPane.topAnchor="115.0" />
-                              <JFXTextField fx:id="txtDutySalary" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="194.0" prefHeight="40.0" prefWidth="230.0" promptText="Lương" unFocusColor="#17e52f" AnchorPane.topAnchor="195.0" />
+                              <JFXTextField fx:id="txtDutyName" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="115.0" onMouseClicked="#handleStaffDuty" prefHeight="40.0" prefWidth="230.0" promptText="Tên Chức Vụ" unFocusColor="#17e52f" AnchorPane.topAnchor="115.0" />
+                              <JFXTextField fx:id="txtDutySalary" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="194.0" onMouseClicked="#handleStaffDutySalary" prefHeight="40.0" prefWidth="230.0" promptText="Lương" unFocusColor="#17e52f" AnchorPane.topAnchor="195.0" />
                            </children>
                         </AnchorPane>
-                        <JFXButton fx:id="btnDutyDelete" layoutX="345.0" layoutY="380.0" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="XÓA CHỨC VỤ" textFill="WHITE">
+                        <JFXButton fx:id="btnDutyDelete" layoutX="345.0" layoutY="380.0" onMouseClicked="#handleStaffDutyDelete" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="XÓA CHỨC VỤ" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="btnDutyOpen" layoutX="15.0" layoutY="380.0" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="THÊM CHỨC VỤ" textFill="WHITE">
+                        <JFXButton fx:id="btnDutyOpen" layoutX="15.0" layoutY="380.0" onMouseClicked="#handleStaffDutyOpen" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="THÊM CHỨC VỤ" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="btnDutyUpdate" layoutX="180.0" layoutY="380.0" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="EDIT CHỨC VỤ" textFill="WHITE">
+                        <JFXButton fx:id="btnDutyUpdate" layoutX="180.0" layoutY="380.0" onMouseClicked="#handleStaffDutyUpdate" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="EDIT CHỨC VỤ" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>

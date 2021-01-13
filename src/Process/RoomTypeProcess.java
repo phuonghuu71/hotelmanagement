@@ -12,11 +12,13 @@ public class RoomTypeProcess {
         String sql = "SELECT * FROM LOAIPHONG";
         return conn.LoadData(sql);
     }
+
     public void deleteRoomType(String id) throws SQLException {
         conn.connectSQL();
         String sql = "DELETE FROM LOAIPHONG WHERE MALOAIPHONG = '"+id+"'";
         conn.UpdateData(sql);
     }
+
     public void insertRoomType(String roomTypeName, String roomTypePrice) throws SQLException {
         conn.connectSQL();
         String sql = "INSERT INTO LOAIPHONG(TENLOAIPHONG, GIALOAIPHONG) VALUES('"+roomTypeName+"', '"+roomTypePrice+"')";
@@ -28,4 +30,5 @@ public class RoomTypeProcess {
         String sql = "UPDATE LOAIPHONG SET  TENLOAIPHONG = N'"+roomTypeName+"', GIALOAIPHONG = '"+roomTypePrice+"' where MALOAIPHONG = '"+roomTypeId+"'";
         conn.UpdateData(sql);
     }
+
 }

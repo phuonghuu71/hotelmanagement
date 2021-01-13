@@ -1,11 +1,11 @@
 package Database;
 
-public class StaffType {
+public class StaffDuty {
     String id;
     String tenChucvu;
     String luong;
 
-    public StaffType(String id, String tenChucvu, String luong) {
+    public StaffDuty(String id, String tenChucvu, String luong) {
         this.id = id;
         this.tenChucvu = tenChucvu;
         this.luong = luong;

@@ -23,16 +23,17 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="53.0" layoutY="400.0" prefHeight="18.0" prefWidth="179.0" text="Chưa có tài khoản ? Đăng Ký" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="44.0" />
-                  <JFXTextField fx:id="txtUsername" focusColor="#a8cf45" labelFloat="true" layoutX="33.0" layoutY="85.0" prefHeight="38.0" prefWidth="231.0" promptText="Tên Đăng Nhập" unFocusColor="#010101" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="85.0" />
+                  <Label fx:id="lbRegister" alignment="CENTER" layoutX="53.0" layoutY="400.0" onMouseClicked="#handleRegister" onMouseEntered="#handleRegisterEnter" onMouseExited="#handleRegisterExit" prefHeight="18.0" prefWidth="179.0" text="Chưa có tài khoản ? Đăng Ký" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="44.0" />
+                  <JFXTextField fx:id="txtUsername" focusColor="#a8cf45" labelFloat="true" layoutX="33.0" layoutY="85.0" prefHeight="38.0" prefWidth="231.0" promptText="Tên Đăng Nhập / Email" unFocusColor="#010101" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="85.0" />
+                  <JFXCheckBox fx:id="chkRememberMe" checkedColor="#a8cf45" layoutX="35.0" layoutY="214.0" text="Nhớ Tôi" AnchorPane.leftAnchor="35.0" />
                   <JFXPasswordField fx:id="txtPassword" focusColor="#a8cf45" labelFloat="true" layoutX="35.0" layoutY="150.0" prefHeight="38.0" prefWidth="231.0" promptText="Mật Khẩu" unFocusColor="BLACK" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="155.0" />
-                  <JFXCheckBox fx:id="chkRememberMe" checkedColor="#a8cf45" layoutX="35.0" layoutY="214.0" text="Nhớ mật khẩu" AnchorPane.leftAnchor="35.0" />
                   <JFXButton fx:id="btnLogin" layoutX="31.0" layoutY="257.0" onAction="#handleLogin" prefHeight="38.0" prefWidth="98.0" ripplerFill="BLACK" style="-fx-background-color: #a8cf45; -fx-background-radius: 10;" text="Đăng Nhập" textAlignment="CENTER" textFill="WHITE" />
                   <Label fx:id="lblExit" layoutX="248.0" layoutY="21.0" onMouseClicked="#handleExit" onMouseEntered="#handleExitEnter" onMouseExited="#handleExitExit" prefHeight="5.0" prefWidth="15.0" text="X" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Label>
+                  <Label fx:id="lbForgotPassword" alignment="CENTER" layoutX="174.0" layoutY="214.0" onMouseClicked="#handleForgotPassword" onMouseEntered="#handleForgotPasswordEnter" onMouseExited="#handleForgotPasswordExit" prefHeight="18.0" prefWidth="91.0" text="Quên mật khẩu ?" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="23.0" layoutY="30.0" prefHeight="470.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to right bottom, #051937, #00476c, #007981, #00a96c, #a8cf45); -fx-background-radius: 15;" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="18.0">
@@ -56,6 +57,7 @@
                         <Image url="@../resources/images/NicePng_green-leaf-design-png_9521126.png" />
                      </image>
                   </ImageView>
+                  <StackPane fx:id="stackpaneManageAccount" layoutX="75.0" layoutY="160.0" prefHeight="150.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
          </children>

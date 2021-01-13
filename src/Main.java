@@ -12,6 +12,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/Interface/Login.fxml"));
         Scene scene = new Scene(root);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.setTitle("Đăng Nhập");
         primaryStage.setScene(scene);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.show();
