@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReportController">
+   <children>
+      <TabPane prefHeight="600.0" prefWidth="890.0" stylesheets="@../resources/style/tabpane.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Báo cáo doanh thu">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableReport" layoutX="14.0" layoutY="14.0" prefHeight="350.0" prefWidth="863.0" stylesheets="@../resources/style/tableview.css">
+                           <columns>
+                              <TableColumn fx:id="colReportID" prefWidth="45.0" text="ID" />
+                              <TableColumn fx:id="colRoomName" prefWidth="142.40002059936523" text="Tên Phòng" />
+                              <TableColumn fx:id="colBillDate" prefWidth="123.99998474121094" text="Ngày lập HĐ" />
+                              <TableColumn fx:id="colCheckInDate" minWidth="0.0" prefWidth="196.0" text="Ngày nhận phòng" />
+                              <TableColumn fx:id="colCheckOutDate" prefWidth="182.4000244140625" text="Ngày trả phòng" />
+                              <TableColumn fx:id="colTotalCash" minWidth="0.0" prefWidth="133.5999755859375" text="Tổng Tiền" />
+                           </columns>
+                        </TableView>
+                        <JFXButton fx:id="btnReportByWeek" layoutX="237.0" layoutY="372.0" onMouseClicked="#handleReportByWeek" prefHeight="50.0" prefWidth="197.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="THỐNG KÊ THEO TUẦN" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnReportByMonth" layoutX="460.0" layoutY="372.0" onMouseClicked="#handleReportByMonth" prefHeight="50.0" prefWidth="197.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="THỐNG KÊ THEO THÁNG" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnReportByYear" layoutX="678.0" layoutY="372.0" onMouseClicked="#handleReportByYear" prefHeight="50.0" prefWidth="197.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="THỐNG KÊ THEO NĂM" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Report">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckOutController">
+   <children>
+      <TableView fx:id="tableCheckOut" layoutX="14.0" layoutY="84.0" onMouseClicked="#handleTableCheckOut" prefHeight="330.0" prefWidth="520.0" stylesheets="@../resources/style/tableview.css">
+         <columns>
+            <TableColumn fx:id="colCheckOutID" prefWidth="50.0" text="ID" />
+            <TableColumn fx:id="colCustomerName" prefWidth="220.8000030517578" text="TÊN KHÁCH" />
+            <TableColumn fx:id="colRoomName" minWidth="0.0" prefWidth="119.20001220703125" text="PHÒNG" />
+         </columns>
+      </TableView>
+      <JFXTextField fx:id="txtStaffName1" focusColor="#40a85d" labelFloat="true" layoutX="14.0" layoutY="28.0" prefHeight="40.0" prefWidth="230.0" promptText="Tìm kiếm khách" unFocusColor="#17e52f" />
+      <AnchorPane layoutX="636.0" layoutY="14.0" prefHeight="550.0" prefWidth="260.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
+         <children>
+            <JFXDatePicker fx:id="dtpReverse" layoutX="15.0" layoutY="40.0" prefWidth="230.0" promptText="Ngày đặt phòng" />
+            <JFXDatePicker fx:id="dtpCheckIn" layoutX="15.0" layoutY="100.0" prefWidth="230.0" promptText="Ngày nhận phòng" />
+            <JFXDatePicker fx:id="dtpCheckOut" layoutX="15.0" layoutY="160.0" prefWidth="230.0" promptText="Ngày trả phòng" />
+            <JFXTimePicker fx:id="dtpHourNow" layoutX="15.0" layoutY="280.0" prefWidth="230.0" promptText="Giờ hiện tại" />
+            <JFXTextField fx:id="txtSurcharge" focusColor="#40a85d" labelFloat="true" layoutX="15.0" layoutY="340.0" prefHeight="40.0" prefWidth="230.0" promptText="Phụ Thu Trả phòng trễ (%)" unFocusColor="#17e52f" />
+            <JFXDatePicker fx:id="dtpDateNow" layoutX="15.0" layoutY="220.0" prefWidth="230.0" promptText="Ngày hiện tại" />
+            <JFXTextField fx:id="txtTotalCash" focusColor="#40a85d" labelFloat="true" layoutX="15.0" layoutY="480.0" prefHeight="40.0" prefWidth="230.0" promptText="Tổng Tiền" unFocusColor="#17e52f" />
+            <JFXTextField fx:id="txtServicePrice" focusColor="#40a85d" labelFloat="true" layoutX="15.0" layoutY="410.0" prefHeight="40.0" prefWidth="230.0" promptText="Phụ Thu Dịch Vụ (nếu có)" unFocusColor="#17e52f" />
+            <Label layoutX="14.0" layoutY="257.0" text="Giờ hiện tại" />
+            <Label layoutX="14.0" layoutY="202.0" text="Ngày hiện tại" />
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="btnCheckOut" layoutX="354.0" layoutY="454.0" onMouseClicked="#handleCheckOut" prefHeight="50.0" prefWidth="180.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="TRẢ PHÒNG" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

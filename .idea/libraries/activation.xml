@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="activation">
     <CLASSES>
-      <root url="jar://F:/Hoctap/java/activation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/activation.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

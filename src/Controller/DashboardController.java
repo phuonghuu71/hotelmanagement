@@ -10,10 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import resources.AlertMaker;
@@ -28,6 +25,7 @@ public class DashboardController implements Initializable {
 
     public VBox adminVbox;
     public HBox adminHbox;
+    public AnchorPane anchorpaneDashboard;
     public BorderPane borderpaneDashboard;
     public HBox hboxHome;
     public HBox staffHbox;
@@ -36,6 +34,7 @@ public class DashboardController implements Initializable {
     public StackPane stackpaneDashboard;
     public Label lbName;
     public HBox bookingHbox;
+    public HBox serviceHbox;
 
 
     private LoginController loginController;
@@ -51,7 +50,7 @@ public class DashboardController implements Initializable {
         customPowerOff();
     }
 
-    void getUsername(String text) {
+    void setUsername(String text) {
         lbName.setText(text);
     }
 
@@ -141,7 +140,37 @@ public class DashboardController implements Initializable {
         loadUI("Room");
     }
 
-    public void handleBookingHbox(MouseEvent mouseEvent) {
-        loadUI("Booking");
+    public void handleBookingHbox(MouseEvent mouseEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/Booking.fxml"));
+        Parent root = loader.load();
+        borderpaneDashboard.setCenter(root);
+        new FadeIn(root).play();
+
+        String fullname = lbName.getText();
+
+        BookingController bookingController = loader.getController();
+        bookingController.setStaffName(fullname);
+
+    }
+
+    public void handleCallServiceHbox(MouseEvent mouseEvent) {
+        loadUI("CallService");
+    }
+
+    public void handleCheckoutHbox(MouseEvent mouseEvent) {
+        loadUI("CheckOut");
+    }
+
+    public void handleCustomerHbox(MouseEvent mouseEvent) {
+        loadUI("Customer");
+    }
+
+    public void handleServiceHbox(MouseEvent mouseEvent) {
+        loadUI("Service");
+    }
+
+    public void handleReportHbox(MouseEvent mouseEvent) {
+        loadUI("Report");
     }
 }

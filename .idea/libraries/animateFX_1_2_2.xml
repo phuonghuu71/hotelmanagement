@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="animateFX-1.2.2">
     <CLASSES>
-      <root url="jar://F:/Hoctap/java/animateFX-1.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/animateFX-1.2.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

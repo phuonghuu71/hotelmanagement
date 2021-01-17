@@ -3,6 +3,8 @@ package Controller;
 import Process.StaffProcess;
 import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -154,6 +156,7 @@ public class LoginController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Quản lý Khách Sạn");
+
         stage.setScene(scene);
 
         ResultSet getStaffInfoByUsername = getStaffProcess.getStaffInfoByUsername(txtUsername.getText());
@@ -175,7 +178,8 @@ public class LoginController implements Initializable {
         }
 
         DashboardController dashboardController = loader.getController();
-        dashboardController.getUsername(fullname);
+        dashboardController.setUsername(fullname);
+
 
         if(!duty.equals("admin")) {
             dashboardController.setAdminControl();

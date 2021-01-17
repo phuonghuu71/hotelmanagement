@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ServiceController">
+   <children>
+      <TableView fx:id="tableService" layoutX="15.0" layoutY="15.0" onMouseClicked="#handleServiceTable" prefHeight="350.0" prefWidth="600.0" stylesheets="@../resources/style/tableview.css">
+         <columns>
+            <TableColumn fx:id="colServiceID" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="colServiceName" prefWidth="255.2000274658203" text="Tên Dịch Vụ" />
+            <TableColumn fx:id="colServicePrice" prefWidth="204.79998779296875" text="Giá Dịch Vụ" />
+         </columns>
+      </TableView>
+      <JFXButton fx:id="btnUpdateService" layoutX="180.0" layoutY="380.0" onMouseClicked="#handleServiceUpdate" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="EDIT DỊCH VỤ" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnDeleteService" layoutX="350.0" layoutY="380.0" onMouseClicked="#handleCustomerDelete" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="XÓA DỊCH VỤ" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane layoutX="630.0" layoutY="15.0" prefHeight="270.0" prefWidth="260.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
+         <children>
+            <JFXTextField fx:id="txtServiceID" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="35.0" prefHeight="40.0" prefWidth="230.0" promptText="ID" unFocusColor="#17e52f" AnchorPane.topAnchor="35.0" />
+            <JFXTextField fx:id="txtServicePrice" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="195.0" prefHeight="40.0" prefWidth="230.0" promptText="Giá Dịch Vụ" unFocusColor="#17e52f" AnchorPane.topAnchor="195.0" />
+            <JFXTextField fx:id="txtServiceName" focusColor="#40a85d" labelFloat="true" layoutX="9.0" layoutY="115.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Dịch Vụ" unFocusColor="#17e52f" AnchorPane.topAnchor="115.0" />
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="btnAddServiceOpen" layoutX="14.0" layoutY="380.0" onMouseClicked="#handleServiceAddOpen" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="THÊM DỊCH VỤ" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
+      <StackPane fx:id="stackpaneService" prefHeight="0.0" prefWidth="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="200.0" />
+   </children>
+</AnchorPane>

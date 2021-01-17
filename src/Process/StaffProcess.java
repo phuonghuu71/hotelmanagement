@@ -37,6 +37,12 @@ public class StaffProcess {
         return conn.LoadData(sql);
     }
 
+    public ResultSet getStaffInfoByFullname(String fullname) throws SQLException {
+        conn.connectSQL();
+        String sql = "SELECT TOP 1 A.MANV, TENNV, EMAIL, TENCHUCVU FROM NHANVIEN A, CHUCVU B WHERE TENNV = N'"+fullname+"' AND A.MACHUCVU = B.MACHUCVU";
+        return conn.LoadData(sql);
+    }
+
     public ResultSet getStaffInfoByEmail(String email) throws SQLException {
         conn.connectSQL();
         String sql = "SELECT TOP 1 TENNV, EMAIL, TENCHUCVU FROM NHANVIEN A, CHUCVU B WHERE EMAIL = '"+email+"' AND A.MACHUCVU = B.MACHUCVU";

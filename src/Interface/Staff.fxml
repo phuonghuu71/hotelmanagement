@@ -28,7 +28,7 @@
                               <TableColumn fx:id="colSalary" prefWidth="120.0" text="Lương" />
                            </columns>
                         </TableView>
-                        <JFXButton fx:id="btnUpdateStaff" layoutX="15.0" layoutY="380.0" onMouseClicked="#handleStaffUpdate" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="SỬA NHÂN VIÊN" textFill="WHITE">
+                        <JFXButton fx:id="btnUpdateStaff" layoutX="15.0" layoutY="380.0" onMouseClicked="#handleStaffUpdate" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="EDIT NHÂN VIÊN" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -90,6 +90,6 @@
           </Tab>
         </tabs>
       </TabPane>
-      <StackPane fx:id="stackpaneStaff" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="200.0" />
+      <StackPane fx:id="stackpaneStaff" prefHeight="0.0" prefWidth="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="200.0" />
    </children>
 </AnchorPane>

@@ -4,36 +4,37 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="600.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BookingController">
    <children>
       <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="890.0" stylesheets="@../resources/style/tabpane.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="ĐẶT TRƯỚC PHÒNG">
+          <Tab text="ĐẶT TRƯỚC / NHẬN PHÒNG">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <AnchorPane>
                            <children>
                               <JFXTextField fx:id="txtCustomerNameSearch" focusColor="#40a85d" labelFloat="true" layoutX="564.0" layoutY="20.0" prefHeight="40.0" prefWidth="230.0" promptText="Tìm kiếm khách" unFocusColor="#17e52f" AnchorPane.topAnchor="20.0" />
-                              <JFXComboBox fx:id="cbRoomType" focusColor="#40a85d" layoutX="14.0" layoutY="100.0" prefHeight="40.0" prefWidth="230.0" promptText="Loại Phòng" unFocusColor="#17e52f" AnchorPane.topAnchor="100.0" />
-                              <JFXComboBox fx:id="cbRoomCapacity" focusColor="#40a85d" layoutX="14.0" layoutY="170.0" prefHeight="40.0" prefWidth="230.0" promptText="Sức Chứa" unFocusColor="#17e52f" AnchorPane.topAnchor="170.0" />
-                              <JFXComboBox fx:id="cbRoomName" focusColor="#40a85d" layoutX="14.0" layoutY="240.0" onMouseClicked="#handleRoomName" prefHeight="40.0" prefWidth="230.0" promptText="Tên Phòng" unFocusColor="#17e52f" AnchorPane.topAnchor="240.0" />
-                              <JFXDatePicker fx:id="dtpCheckIn" layoutX="275.0" layoutY="182.0" prefWidth="230.0" promptText="Ngày nhận phòng" AnchorPane.topAnchor="182.0" />
-                              <JFXDatePicker fx:id="dtpCheckOut" layoutX="275.0" layoutY="258.0" prefWidth="230.0" promptText="Ngày trả phòng" AnchorPane.topAnchor="252.0" />
-                              <JFXButton fx:id="btnBooking" layoutX="564.0" layoutY="453.0" prefHeight="50.0" prefWidth="180.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="ĐẶT TRƯỚC PHÒNG" textFill="WHITE">
+                              <JFXComboBox fx:id="cbRoomType" focusColor="#40a85d" layoutX="14.0" layoutY="140.0" prefHeight="40.0" prefWidth="230.0" promptText="Loại Phòng" unFocusColor="#17e52f" AnchorPane.topAnchor="140.0" />
+                              <JFXComboBox fx:id="cbRoomCapacity" focusColor="#40a85d" layoutX="14.0" layoutY="210.0" prefHeight="40.0" prefWidth="230.0" promptText="Sức Chứa" unFocusColor="#17e52f" AnchorPane.topAnchor="210.0" />
+                              <JFXComboBox fx:id="cbRoomName" focusColor="#40a85d" layoutX="14.0" layoutY="280.0" onMouseClicked="#handleRoomName" prefHeight="40.0" prefWidth="230.0" promptText="Tên Phòng" unFocusColor="#17e52f" AnchorPane.topAnchor="280.0" />
+                              <JFXDatePicker fx:id="dtpCheckIn" layoutX="275.0" layoutY="222.0" prefWidth="230.0" promptText="Ngày nhận phòng" AnchorPane.topAnchor="222.0" />
+                              <JFXDatePicker fx:id="dtpCheckOut" layoutX="275.0" layoutY="292.0" prefWidth="230.0" promptText="Ngày trả phòng" AnchorPane.topAnchor="292.0" />
+                              <JFXButton fx:id="btnBooking" layoutX="564.0" layoutY="453.0" onMouseClicked="#handleBooking" prefHeight="50.0" prefWidth="180.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="ĐẶT TRƯỚC PHÒNG" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </JFXButton>
-                              <JFXDatePicker fx:id="dtpReverse" layoutX="275.0" layoutY="112.0" prefWidth="230.0" promptText="Ngày đặt phòng" AnchorPane.topAnchor="112.0" />
+                              <JFXDatePicker fx:id="dtpReverse" layoutX="275.0" layoutY="152.0" prefWidth="230.0" promptText="Ngày đặt phòng" AnchorPane.topAnchor="152.0" />
                               <JFXButton fx:id="btnCancel" layoutX="764.0" layoutY="453.0" prefHeight="50.0" prefWidth="100.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="HỦY" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
@@ -47,7 +48,9 @@
                                     <TableColumn fx:id="colCustomerPhoneNumber" prefWidth="100.0" text="SĐT" />
                                  </columns>
                               </TableView>
-                              <JFXTextField fx:id="txtCustomerName" focusColor="#40a85d" labelFloat="true" layoutX="14.0" layoutY="20.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Khách" unFocusColor="#17e52f" />
+                              <JFXTextField fx:id="txtCustomerName" focusColor="#40a85d" labelFloat="true" layoutX="14.0" layoutY="60.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Khách" unFocusColor="#17e52f" />
+                              <JFXTextField fx:id="txtStaffName" focusColor="#40a85d" labelFloat="true" layoutX="275.0" layoutY="62.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Nhân Viên" unFocusColor="#17e52f" />
+                              <JFXToggleButton fx:id="toggleReserve" layoutX="14.0" layoutY="371.0" onMouseClicked="#handleReserve" text="Đặt trước phòng" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -58,28 +61,55 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tableCustomer1" layoutX="14.0" layoutY="14.0" onMouseClicked="#handleCustomer" prefHeight="452.0" prefWidth="862.0" stylesheets="@../resources/style/tableview.css">
+                        <TableView fx:id="tableReservation" layoutX="14.0" layoutY="70.0" onMouseClicked="#handleTableReservation" prefHeight="330.0" prefWidth="862.0" stylesheets="@../resources/style/tableview.css">
                            <columns>
-                              <TableColumn fx:id="colCustomerID1" prefWidth="50.0" text="ID" />
-                              <TableColumn fx:id="colCustomerName1" prefWidth="150.0" text="TÊN KHÁCH" />
-                              <TableColumn fx:id="colCustomerPhoneNumber1" prefWidth="100.0" text="SĐT" />
+                              <TableColumn fx:id="colReservationID" prefWidth="50.0" text="ID" />
+                              <TableColumn fx:id="colCustomerName_Reservation" prefWidth="141.5999755859375" text="TÊN KHÁCH" />
+                              <TableColumn fx:id="colRoomName" prefWidth="75.0" text="PHÒNG" />
+                              <TableColumn fx:id="colReservationDate" prefWidth="145.6000518798828" text="NGÀY ĐẶT PHÒNG" />
+                              <TableColumn fx:id="colCheckInDate" prefWidth="158.4000244140625" text="NGÀY NHẬN PHÒNG" />
+                              <TableColumn fx:id="colCheckOutDate" prefWidth="156.0" text="NGÀY TRẢ PHÒNG" />
+                              <TableColumn fx:id="colTotalCash" prefWidth="138.4000244140625" text="TỔNG TIỀN" />
                            </columns>
                         </TableView>
-                        <JFXButton fx:id="btnBooking1" layoutX="500.0" layoutY="490.0" prefHeight="50.0" prefWidth="180.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="NHẬN PHÒNG" textFill="WHITE">
+                        <JFXButton fx:id="btnCheckIn" layoutX="500.0" layoutY="490.0" onMouseClicked="#handleCheckIn" prefHeight="50.0" prefWidth="180.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="NHẬN PHÒNG" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="btnBooking2" layoutX="696.0" layoutY="490.0" prefHeight="50.0" prefWidth="180.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="HỦY ĐẶT TRƯỚC" textFill="WHITE">
+                        <JFXButton fx:id="btnCancelReservation" layoutX="696.0" layoutY="490.0" onMouseClicked="#handleCancelReservation" prefHeight="50.0" prefWidth="180.0" ripplerFill="#a7221b" style="-fx-background-color: #dd1f13; -fx-background-radius: 20;" text="HỦY ĐẶT TRƯỚC" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </JFXButton>
+                        <JFXTextField fx:id="txtCustomerNameSearch_reserved" focusColor="#40a85d" labelFloat="true" layoutX="645.0" layoutY="20.0" prefHeight="40.0" prefWidth="230.0" promptText="Tìm kiếm khách" unFocusColor="#17e52f" />
+                        <JFXTextField fx:id="txtCustomerName_list" focusColor="#40a85d" labelFloat="true" layoutX="645.0" layoutY="435.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên khách" unFocusColor="#17e52f" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab text="DANH SÁCH NHẬN PHÒNG">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableCheckIn" layoutX="14.0" layoutY="70.0" prefHeight="330.0" prefWidth="862.0" stylesheets="@../resources/style/tableview.css">
+                           <columns>
+                              <TableColumn fx:id="colCheckInID" prefWidth="50.0" text="ID" />
+                              <TableColumn fx:id="colCustomerName_CheckIn" prefWidth="141.5999755859375" text="TÊN KHÁCH" />
+                              <TableColumn fx:id="colRoomName_CheckIn" prefWidth="75.0" text="PHÒNG" />
+                              <TableColumn fx:id="colReservationDate_CheckIn" prefWidth="145.6000518798828" text="NGÀY ĐẶT PHÒNG" />
+                              <TableColumn fx:id="colCheckInDate_CheckIn" prefWidth="158.4000244140625" text="NGÀY NHẬN PHÒNG" />
+                              <TableColumn fx:id="colCheckOutDate_CheckIn" prefWidth="156.0" text="NGÀY TRẢ PHÒNG" />
+                              <TableColumn fx:id="colTotalCash_CheckIn" prefWidth="138.4000244140625" text="TỔNG TIỀN" />
+                           </columns>
+                        </TableView>
+                        <JFXTextField fx:id="txtCustomerNameSearch_checkin" focusColor="#40a85d" labelFloat="true" layoutX="645.0" layoutY="20.0" prefHeight="40.0" prefWidth="230.0" promptText="Tìm kiếm khách" unFocusColor="#17e52f" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
+      <StackPane fx:id="stackpaneBooking" layoutY="227.0" prefHeight="0.0" prefWidth="310.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="200.0" />
    </children>
 </AnchorPane>

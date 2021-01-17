@@ -1,12 +1,10 @@
 package Controller;
 
 import Database.Customer;
-import Database.RoomType;
+import Database.Booking;
 import Process.*;
 
 import com.jfoenix.controls.*;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -18,23 +16,22 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import resources.AlertMaker;
 
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class BookingController implements Initializable {
-    public JFXToggleButton toggleReverse;
     public JFXDatePicker dtpReverse;
     public JFXDatePicker dtpCheckIn;
     public JFXDatePicker dtpCheckOut;
@@ -51,15 +48,45 @@ public class BookingController implements Initializable {
     public TableColumn<Customer, String> colCustomerName;
     public TableColumn<Customer, String> colCustomerPhoneNumber;
 
+    public TableView<Booking> tableReservation;
+    public TableColumn<Booking, String> colReservationID;
+    public TableColumn<Booking, String> colCustomerName_Reservation;
+    public TableColumn<Booking, String> colRoomName;
+    public TableColumn<Booking, String> colReservationDate;
+    public TableColumn<Booking, String> colCheckInDate;
+    public TableColumn<Booking, String> colCheckOutDate;
+    public TableColumn<Booking, String> colTotalCash;
+
+    public TableView<Booking> tableCheckIn;
+    public TableColumn<Booking, String> colCheckInID;
+    public TableColumn<Booking, String> colCustomerName_CheckIn;
+    public TableColumn<Booking, String> colRoomName_CheckIn;
+    public TableColumn<Booking, String> colReservationDate_CheckIn;
+    public TableColumn<Booking, String> colCheckInDate_CheckIn;
+    public TableColumn<Booking, String> colCheckOutDate_CheckIn;
+    public TableColumn<Booking, String> colTotalCash_CheckIn;
+
     public JFXTextField txtCustomerNameSearch;
     public JFXTextField txtTotalCash;
     public JFXTextField txtCustomerName;
+    public JFXTextField txtStaffName;
+    public JFXTextField txtCustomerName_list;
+    public StackPane stackpaneBooking;
+    public JFXToggleButton toggleReserve;
+    public JFXTextField txtCustomerNameSearch_reserved;
+    public JFXTextField txtCustomerNameSearch_checkin;
+
     ObservableList<Customer> customerList = FXCollections.observableArrayList();
     CustomerProcess customerProcess = new CustomerProcess();
+
+    ObservableList<Booking> bookingList = FXCollections.observableArrayList();
+    ObservableList<Booking> checkInList = FXCollections.observableArrayList();
 
     RoomTypeProcess roomTypeProcess = new RoomTypeProcess();
     RoomCapacityProcess roomCapacityProcess = new RoomCapacityProcess();
     RoomProcess roomProcess = new RoomProcess();
+    StaffProcess staffProcess = new StaffProcess();
+    BookingProcess bookingProcess = new BookingProcess();
 
     ArrayList<Integer> roomTypeIDList = new ArrayList<>();
     ArrayList<Integer> roomCapacityIDList = new ArrayList<>();
@@ -72,13 +99,23 @@ public class BookingController implements Initializable {
     double roomTypePrice = 0;
     double roomCapacityPrice = 0;
 
+    private LoginController loginController;
+
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
+
+    public void setStaffName(String text) {
+        txtStaffName.setText(text);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             showCb();
             loadCustomerList();
-            searchCustomer();
+            loadReservationList();
+            loadCheckInList();
             setDate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -86,23 +123,18 @@ public class BookingController implements Initializable {
     }
 
     private void setDate() {
-        DateTimeFormatter date_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter hour_formatter = DateTimeFormatter.ofPattern("kk:mm");
-
-
-
         LocalDate date_now = LocalDate.now();
         dtpReverse.setValue(date_now);
         dtpCheckIn.setValue(date_now);
         dtpCheckOut.setValue(date_now);
 
-        date_diff = ChronoUnit.DAYS.between(dtpCheckIn.getValue(), dtpCheckOut.getValue())+1;
+        date_diff = ChronoUnit.DAYS.between(dtpCheckIn.getValue(), dtpCheckOut.getValue());
         txtTotalCash.setText(Long.toString(date_diff));
 
         dtpCheckIn.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> observableValue, LocalDate localDate, LocalDate t1) {
-                date_diff = ChronoUnit.DAYS.between(dtpCheckIn.getValue(), dtpCheckOut.getValue())+1;
+                date_diff = ChronoUnit.DAYS.between(dtpCheckIn.getValue(), dtpCheckOut.getValue());
                 money = (roomTypePrice+roomCapacityPrice)*date_diff;
                 txtTotalCash.setText(Double.toString(money));
             }
@@ -111,7 +143,7 @@ public class BookingController implements Initializable {
         dtpCheckOut.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> observableValue, LocalDate localDate, LocalDate t1) {
-                date_diff = ChronoUnit.DAYS.between(dtpCheckIn.getValue(), dtpCheckOut.getValue())+1;
+                date_diff = ChronoUnit.DAYS.between(dtpCheckIn.getValue(), dtpCheckOut.getValue());
                 money = (roomTypePrice+roomCapacityPrice)*date_diff;
                 txtTotalCash.setText(Double.toString(money));
             }
@@ -168,7 +200,7 @@ public class BookingController implements Initializable {
 
     void loadCustomerList() throws SQLException {
         if(tableCustomer != null) {
-            tableCustomer.getItems().clear();
+            customerList.clear();
         }
         ResultSet result = customerProcess.getCustomerList();
         while (result.next()) {
@@ -180,6 +212,52 @@ public class BookingController implements Initializable {
         colCustomerPhoneNumber.setCellValueFactory(new PropertyValueFactory<Customer, String>("phoneNumber"));
 
         tableCustomer.setItems(customerList);
+
+        searchCustomer();
+    }
+
+    void loadReservationList() throws SQLException {
+        if(tableReservation != null) {
+            bookingList.clear();
+        }
+        ResultSet result = bookingProcess.getReserveInfo();
+        while (result.next()) {
+            bookingList.add(new Booking(result.getString("SOPHIEUDP"), result.getString("TENKH"), result.getString("TENPHONG"), result.getString("NGAYDATPHONG"), result.getString("NGAYNHANPHONG"), result.getString("NGAYTRAPHONG"), result.getString("TONGTIEN"), result.getString("MAHD")));
+        }
+
+        colReservationID.setCellValueFactory(new PropertyValueFactory<Booking, String>("id"));
+        colCustomerName_Reservation.setCellValueFactory(new PropertyValueFactory<Booking, String>("customerName"));
+        colRoomName.setCellValueFactory(new PropertyValueFactory<Booking, String>("roomName"));
+        colReservationDate.setCellValueFactory(new PropertyValueFactory<Booking, String>("reservationDate"));
+        colCheckInDate.setCellValueFactory(new PropertyValueFactory<Booking, String>("checkInDate"));
+        colCheckOutDate.setCellValueFactory(new PropertyValueFactory<Booking, String>("checkOutDate"));
+        colTotalCash.setCellValueFactory(new PropertyValueFactory<Booking, String>("totalCash"));
+
+        tableReservation.setItems(bookingList);
+
+        searchCustomer();
+    }
+
+    void loadCheckInList() throws SQLException {
+        if(tableCheckIn != null) {
+            checkInList.clear();
+        }
+        ResultSet result = bookingProcess.getCheckInInfo();
+        while (result.next()) {
+            checkInList.add(new Booking(result.getString("SOPHIEUDP"), result.getString("TENKH"), result.getString("TENPHONG"), result.getString("NGAYDATPHONG"), result.getString("NGAYNHANPHONG"), result.getString("NGAYTRAPHONG"), result.getString("TONGTIEN"), result.getString("MAHD")));
+        }
+
+        colCheckInID.setCellValueFactory(new PropertyValueFactory<Booking, String>("id"));
+        colCustomerName_CheckIn.setCellValueFactory(new PropertyValueFactory<Booking, String>("customerName"));
+        colRoomName_CheckIn.setCellValueFactory(new PropertyValueFactory<Booking, String>("roomName"));
+        colReservationDate_CheckIn.setCellValueFactory(new PropertyValueFactory<Booking, String>("reservationDate"));
+        colCheckInDate_CheckIn.setCellValueFactory(new PropertyValueFactory<Booking, String>("checkInDate"));
+        colCheckOutDate_CheckIn.setCellValueFactory(new PropertyValueFactory<Booking, String>("checkOutDate"));
+        colTotalCash_CheckIn.setCellValueFactory(new PropertyValueFactory<Booking, String>("totalCash"));
+
+        tableCheckIn.setItems(checkInList);
+
+        searchCustomer();
     }
 
     private void searchCustomer() {
@@ -212,6 +290,51 @@ public class BookingController implements Initializable {
         // 5. Add sorted (and filtered) data to the table.
         tableCustomer.setItems(sortedData);
 
+
+        FilteredList<Booking> filteredList_reserved = new FilteredList<>(bookingList, b->true);
+        txtCustomerNameSearch_reserved.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList_reserved.setPredicate(customer -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (customer.getCustomerName().toLowerCase().indexOf(lowerCaseFilter) != -1)
+                    return true; // Filter matches name.
+                else if (customer.getRoomName().toLowerCase().indexOf(lowerCaseFilter) != -1)
+                    return true;
+                else
+                    return false; // Does not match.
+            });
+        });
+        SortedList<Booking> sortedData_reserved = new SortedList<>(filteredList_reserved);
+        sortedData_reserved.comparatorProperty().bind(tableReservation.comparatorProperty());
+        tableReservation.setItems(sortedData_reserved);
+
+        FilteredList<Booking> filteredList_checkin = new FilteredList<>(checkInList, b->true);
+        txtCustomerNameSearch_checkin.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList_checkin.setPredicate(customer -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (customer.getCustomerName().toLowerCase().indexOf(lowerCaseFilter) != -1)
+                    return true; // Filter matches name.
+                else if (customer.getRoomName().toLowerCase().indexOf(lowerCaseFilter) != -1)
+                    return true;
+                else
+                    return false; // Does not match.
+            });
+        });
+        SortedList<Booking> sortedData_checkin = new SortedList<>(filteredList_checkin);
+        sortedData_checkin.comparatorProperty().bind(tableCheckIn.comparatorProperty());
+        tableCheckIn.setItems(sortedData_checkin);
+
     }
 
     public void handleCustomer(MouseEvent mouseEvent) {
@@ -219,4 +342,248 @@ public class BookingController implements Initializable {
         this.txtCustomerName.setText(customerName);
     }
 
+    private String getStaffIdByName(String fullname) throws SQLException {
+        ResultSet getStaffId = staffProcess.getStaffInfoByFullname(fullname);
+        String staffId = null;
+        while(getStaffId.next()) {
+            staffId = getStaffId.getString("MANV");
+        }
+        return staffId;
+    }
+
+    private String getRoomIdByName(String roomName) throws SQLException {
+        ResultSet getRoomId = roomProcess.getRoomIdByRoomName(roomName);
+        String roomId = null;
+        while(getRoomId.next()) {
+            roomId = getRoomId.getString("MAPHONG");
+        }
+        return roomId;
+    }
+
+    public void handleBooking(MouseEvent mouseEvent) throws SQLException {
+        if(toggleReserve.isSelected()) {
+            checkInAction();
+        }
+        else {
+            reserveAction();
+        }
+    }
+
+    private void reserveAction() throws SQLException {
+        DateTimeFormatter date_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter hour_formatter = DateTimeFormatter.ofPattern("kk:mm");
+
+        String roomId = getRoomIdByName(cbRoomName.getSelectionModel().getSelectedItem().toString());
+        String customerId = tableCustomer.getSelectionModel().getSelectedItem().getId();
+        String staffId = getStaffIdByName(txtStaffName.getText());
+
+        String reservationDate = date_formatter.format(dtpReverse.getValue());
+        String checkInDate = date_formatter.format(dtpCheckIn.getValue());
+        String checkOutDate = date_formatter.format(dtpCheckOut.getValue());
+
+        bookingProcess.insertBooking(reservationDate,checkInDate,checkOutDate,customerId,staffId);
+        bookingProcess.insertBookingService(roomId);
+
+        String bookingId = null;
+
+        ResultSet getLastBooking = bookingProcess.getLastBooking();
+        while(getLastBooking.next()) {
+            bookingId = getLastBooking.getString("SOPHIEUDP");
+        }
+
+        bookingProcess.insertBookingDetail(roomId,bookingId);
+
+        String bookingServiceId = null;
+
+        ResultSet getLastBookingService = bookingProcess.getLastBookingService();
+        while(getLastBookingService.next()) {
+            bookingServiceId = getLastBookingService.getString("MAPDV");
+        }
+
+        bookingProcess.insertBookingBill(reservationDate,bookingId,bookingServiceId,txtTotalCash.getText());
+
+        bookingProcess.updateBookingReservation(roomId);
+
+        loadCustomerList();
+        loadReservationList();
+        loadCheckInList();
+
+        JFXButton conf = new AlertMaker().customBtn("Đồng Ý");
+        AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf), "Thành Công", "Đặt trước thành công");
+
+    }
+
+    private void checkInAction() throws SQLException {
+        DateTimeFormatter date_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter hour_formatter = DateTimeFormatter.ofPattern("kk:mm");
+
+        String info = "Nhận phòng thành công. ";
+
+        double discount = 0;
+
+        LocalTime hour_now = LocalTime.now();
+        LocalDate date_now = LocalDate.now();
+        String hour_now_string = hour_formatter.format(hour_now);
+        String date_now_string = date_formatter.format(date_now);
+        String checkInDate = date_now_string+" "+hour_now_string;
+        String checkOutDate = date_formatter.format(dtpCheckOut.getValue());
+
+        String customerId = tableCustomer.getSelectionModel().getSelectedItem().getId();
+        String staffId = getStaffIdByName(txtStaffName.getText());
+
+
+        if(hour_now.getHour() >= 5 && hour_now.getHour() < 9) {
+            discount = 0.5;
+            info += "Giảm 50% (5h - 9h)";
+        }
+        else if(hour_now.getHour() >=9 && hour_now.getHour() < 14) {
+            discount = 0.3;
+            info += "Giảm 30% (9h - 14h)";
+        }
+
+        String roomName = cbRoomName.getSelectionModel().getSelectedItem().toString();
+
+        ResultSet getRoomPriceByName = bookingProcess.getRoomPriceByRoomName(roomName);
+        double roomTypePrice = 0;
+        double roomCapacityPrice = 0;
+        while(getRoomPriceByName.next()) {
+            roomTypePrice = Double.parseDouble(getRoomPriceByName.getString("GIALOAIPHONG"));
+            roomCapacityPrice = Double.parseDouble(getRoomPriceByName.getString("GIASUCCHUA"));
+        }
+
+//        date_diff = ChronoUnit.DAYS.between(date_now, dtpCheckOut.getValue());
+
+        double roomPrice = roomTypePrice + roomCapacityPrice;
+        double roomPrice_tmp = roomPrice;
+        roomPrice_tmp = roomPrice_tmp*date_diff - roomPrice*discount;
+        roomPrice = roomPrice_tmp;
+
+        String roomId = getRoomIdByName(roomName);
+
+        bookingProcess.insertBooking(date_formatter.format(date_now),checkInDate,checkOutDate,customerId,staffId);
+        bookingProcess.insertBookingService(roomId);
+
+        String bookingId = null;
+
+        ResultSet getLastBooking = bookingProcess.getLastBooking();
+        while(getLastBooking.next()) {
+            bookingId = getLastBooking.getString("SOPHIEUDP");
+        }
+
+        bookingProcess.insertBookingDetail(roomId,bookingId);
+
+        String bookingServiceId = null;
+
+        ResultSet getLastBookingService = bookingProcess.getLastBookingService();
+        while(getLastBookingService.next()) {
+            bookingServiceId = getLastBookingService.getString("MAPDV");
+        }
+
+
+        bookingProcess.insertBookingBill(date_formatter.format(date_now),bookingId,bookingServiceId,Double.toString(roomPrice));
+
+        bookingProcess.updateBookingChecIn(roomId);
+
+        loadCustomerList();
+        loadReservationList();
+        loadCheckInList();
+
+        JFXButton conf = new AlertMaker().customBtn("Đồng Ý");
+        AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf), "Thành Công", info);
+    }
+
+    public void handleCheckIn(MouseEvent mouseEvent) throws SQLException {
+        DateTimeFormatter date_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter hour_formatter = DateTimeFormatter.ofPattern("kk:mm");
+
+        String info = "Nhận phòng thành công. ";
+
+        double discount = 0;
+
+        LocalTime hour_now = LocalTime.now();
+        String hour_now_string = hour_formatter.format(hour_now);
+
+        if(hour_now.getHour() >= 5 && hour_now.getHour() < 9) {
+            discount = 0.5;
+            info += "Giảm 50% (5h - 9h)";
+        }
+        else if(hour_now.getHour() >=9 && hour_now.getHour() < 14) {
+            discount = 0.3;
+            info += "Giảm 30% (9h - 14h)";
+        }
+
+        String roomName = tableReservation.getSelectionModel().getSelectedItem().getRoomName();
+        String bookingId = tableReservation.getSelectionModel().getSelectedItem().getId();
+
+        ResultSet getRoomPriceByName = bookingProcess.getRoomPriceByRoomName(roomName);
+        double roomTypePrice = 0;
+        double roomCapacityPrice = 0;
+        while(getRoomPriceByName.next()) {
+            roomTypePrice = Double.parseDouble(getRoomPriceByName.getString("GIALOAIPHONG"));
+            roomCapacityPrice = Double.parseDouble(getRoomPriceByName.getString("GIASUCCHUA"));
+        }
+
+        double roomPrice = roomTypePrice + roomCapacityPrice;
+        double roomPrice_tmp = roomPrice;
+
+        LocalDate date_now = LocalDate.now();
+        LocalDate checkOutDate = LocalDate.parse(tableReservation.getSelectionModel().getSelectedItem().getCheckOutDate().substring(0, 10), date_formatter);
+
+        double date_diff = ChronoUnit.DAYS.between(date_now, checkOutDate);
+
+        roomPrice_tmp = roomPrice_tmp*date_diff - roomPrice*discount;
+        roomPrice = roomPrice_tmp;
+
+        String roomId = getRoomIdByName(roomName);
+
+        bookingProcess.updateBookingChecIn(roomId);
+
+        bookingProcess.updateBillTotalCashByBookingId(Double.toString(roomPrice), bookingId);
+
+        bookingProcess.updateCheckInDateByBookingId(date_formatter.format(date_now)+" "+hour_now_string, bookingId);
+
+        loadCustomerList();
+        loadReservationList();
+        loadCheckInList();
+
+        JFXButton conf = new AlertMaker().customBtn("Đồng Ý");
+        AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf), "Thành Công", info);
+
+    }
+
+
+    public void handleTableReservation(MouseEvent mouseEvent) {
+        String customerName = tableReservation.getSelectionModel().getSelectedItem().getCustomerName();
+        txtCustomerName_list.setText(customerName);
+    }
+
+    public void handleReserve(MouseEvent mouseEvent) {
+        if(toggleReserve.isSelected()) {
+            dtpCheckIn.setValue(LocalDate.now());
+            toggleReserve.setText("Nhận phòng");
+            btnBooking.setText("NHẬN PHÒNG");
+            dtpReverse.setVisible(false);
+            dtpCheckIn.setVisible(false);
+        }
+        else {
+            toggleReserve.setText("Đặt trước phòng");
+            btnBooking.setText("ĐẶT TRƯỚC PHÒNG");
+            dtpReverse.setVisible(true);
+            dtpCheckIn.setVisible(true);
+        }
+    }
+
+    public void handleCancelReservation(MouseEvent mouseEvent) throws SQLException {
+        String bookingID = tableReservation.getSelectionModel().getSelectedItem().getId();
+        String roomID = getRoomIdByName(tableReservation.getSelectionModel().getSelectedItem().getRoomName());
+        bookingProcess.deleteBookingDetailByBookingID(bookingID);
+        bookingProcess.deleteBookingBillByBookingID(bookingID);
+        bookingProcess.deleteBookingByBookingID(bookingID);
+        bookingProcess.deleteBookingServiceByRoomID(roomID);
+        roomProcess.updateRoomStatusCheckOut(roomID);
+        loadReservationList();
+    }
 }
+
+
+

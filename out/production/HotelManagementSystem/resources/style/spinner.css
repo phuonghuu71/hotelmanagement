@@ -1,0 +1,18 @@
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-body-color:  #a8cf45;
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    /* interpolate color between yellow and red based on first color brightness */
+    -fx-body-color: #689c63;
+}
+
+.spinner .increment-arrow-button:hover:pressed,
+.spinner .decrement-arrow-button:hover:pressed,
+.spinner .increment-arrow-button:pressed,
+.spinner .decrement-arrow-button:pressed {
+    /* interpolate color between yellow and red based on first color brightness */
+    -fx-body-color: #689c63;
+}
