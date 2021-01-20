@@ -94,7 +94,7 @@ public class DashboardController implements Initializable {
     }
 
     public void handleHome(MouseEvent mouseEvent) {
-        loadUI("Login");
+        loadUI("Home");
     }
 
     public void handleStaff(MouseEvent mouseEvent) {
@@ -172,5 +172,9 @@ public class DashboardController implements Initializable {
 
     public void handleReportHbox(MouseEvent mouseEvent) {
         loadUI("Report");
+    }
+
+    public void handleChangePasswordHbox(MouseEvent mouseEvent) {
+        loadUI("StaffOptions");
     }
 }

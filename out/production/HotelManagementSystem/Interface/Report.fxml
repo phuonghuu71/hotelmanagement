@@ -41,13 +41,13 @@
                               <Font size="15.0" />
                            </font>
                         </JFXButton>
+                        <JFXButton fx:id="btnReportPrint" layoutX="678.0" layoutY="436.0" onMouseClicked="#handlePrintReport" prefHeight="50.0" prefWidth="197.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="IN BÁO CÁO" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Report">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
         </tabs>

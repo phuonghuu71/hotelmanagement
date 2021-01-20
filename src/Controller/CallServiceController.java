@@ -6,6 +6,7 @@ import Database.Room;
 import Database.Service;
 import Process.ServiceProcess;
 import  Process.RoomProcess;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
@@ -20,10 +21,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import resources.AlertMaker;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class CallServiceController implements Initializable {
@@ -46,6 +50,8 @@ public class CallServiceController implements Initializable {
     ServiceProcess serviceProcess = new ServiceProcess();
     RoomProcess roomProcess = new RoomProcess();
 
+    String bookedID = "";
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -56,53 +62,6 @@ public class CallServiceController implements Initializable {
             throwables.printStackTrace();
         }
 
-    }
-
-    public void handleRoomTable(MouseEvent mouseEvent) {
-    }
-
-    public void handleAddService(MouseEvent mouseEvent) throws SQLException {
-        ResultSet getRoomId = roomProcess.getRoomIdByRoomName(cbRoomName.getSelectionModel().getSelectedItem().toString());
-        String roomId = "";
-        while (getRoomId.next()) {
-            roomId = getRoomId.getString(1);
-        }
-        String serviceId = "";
-        ResultSet getServiceId = serviceProcess.getServiceByServiceName(cbServiceName.getSelectionModel().getSelectedItem().toString());
-        while (getServiceId.next()) {
-            serviceId = getServiceId.getString("MADV");
-        }
-
-        String serviceBookedId = "";
-
-        ResultSet getServiceBookedId = serviceProcess.getServiceBillByRoomId(roomId);
-        while (getServiceBookedId.next()) {
-            serviceBookedId = getServiceBookedId.getString(1);
-        }
-
-        serviceProcess.insertBookedServiceBill(serviceBookedId, serviceId, numNumber.getValue().toString());
-
-        loadService();
-
-    }
-
-    void loadService() throws SQLException {
-
-        if(tableService != null) {
-            callserviceList.clear();
-        }
-        ResultSet result = serviceProcess.getCallService();
-        while (result.next()) {
-            callserviceList.add(new CallService(result.getString("MAPDV"), result.getString("TENPHONG"), result.getString("TENDV"), result.getString("SOLUONG"), result.getString("GIADV")));
-        }
-
-        colServiceID.setCellValueFactory(new PropertyValueFactory<CallService, String>("id"));
-        colRoomName.setCellValueFactory(new PropertyValueFactory<CallService, String>("roomName"));
-        colServiceName_Customer.setCellValueFactory(new PropertyValueFactory<CallService, String>("serviceName"));
-        colQuantity.setCellValueFactory(new PropertyValueFactory<CallService, String>("quantity"));
-        colServicePrice_Customer.setCellValueFactory(new PropertyValueFactory<CallService, String>("servicePrice"));
-
-        tableService.setItems(callserviceList);
     }
 
     void loadCb() throws SQLException {
@@ -140,5 +99,64 @@ public class CallServiceController implements Initializable {
         numNumber.setValueFactory(valueFactory);
     }
 
+    void loadService() throws SQLException {
 
+        if(tableService != null) {
+            callserviceList.clear();
+        }
+        ResultSet result = serviceProcess.getCallService();
+        while (result.next()) {
+            callserviceList.add(new CallService(result.getString("MACHITIETSDDV"), result.getString("TENPHONG"), result.getString("TENDV"), result.getString("SOLUONG"), currencyChange(Double.parseDouble(result.getString("GIADV")))));
+        }
+
+        colServiceID.setCellValueFactory(new PropertyValueFactory<CallService, String>("id"));
+        colRoomName.setCellValueFactory(new PropertyValueFactory<CallService, String>("roomName"));
+        colServiceName_Customer.setCellValueFactory(new PropertyValueFactory<CallService, String>("serviceName"));
+        colQuantity.setCellValueFactory(new PropertyValueFactory<CallService, String>("quantity"));
+        colServicePrice_Customer.setCellValueFactory(new PropertyValueFactory<CallService, String>("servicePrice"));
+
+        tableService.setItems(callserviceList);
+    }
+
+    private String currencyChange(double curr) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return formatter.format(curr)+ " VNĐ";
+    }
+
+
+    public void handleServiceTable(MouseEvent mouseEvent) {
+        bookedID = tableService.getSelectionModel().getSelectedItem().getId();
+    }
+
+    public void handleAddService(MouseEvent mouseEvent) throws SQLException {
+        ResultSet getRoomId = roomProcess.getRoomIdByRoomName(cbRoomName.getSelectionModel().getSelectedItem().toString());
+        String roomId = "";
+        while (getRoomId.next()) {
+            roomId = getRoomId.getString(1);
+        }
+        String serviceId = "";
+        ResultSet getServiceId = serviceProcess.getServiceByServiceName(cbServiceName.getSelectionModel().getSelectedItem().toString());
+        while (getServiceId.next()) {
+            serviceId = getServiceId.getString("MADV");
+        }
+
+        String serviceBookedId = "";
+
+        ResultSet getServiceBookedId = serviceProcess.getServiceBillByRoomId(roomId);
+        while (getServiceBookedId.next()) {
+            serviceBookedId = getServiceBookedId.getString(1);
+        }
+
+        serviceProcess.insertBookedServiceBill(serviceBookedId, serviceId, numNumber.getValue().toString());
+
+        loadService();
+
+    }
+
+
+    public void handleServiceDelete(MouseEvent mouseEvent) throws SQLException {
+        serviceProcess.deleteBookedServiceBill(bookedID);
+        loadService();
+
+    }
 }

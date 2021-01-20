@@ -18,7 +18,7 @@ public class ServiceProcess {
 
     public ResultSet getCallService() throws SQLException {
         conn.connectSQL();
-        String sql =    "SELECT B.MAPDV, TENPHONG, TENDV, SOLUONG, GIADV " +
+        String sql =    "SELECT MACHITIETSDDV, TENPHONG, TENDV, SOLUONG, GIADV " +
                         "FROM HOADON A, PHIEUSDDV B, CHITIETSDDV C, DICHVU D, PHONG E " +
                         "WHERE A.MAPDV = B.MAPDV AND B.MAPDV = C.MAPDV AND C.MADV = D.MADV AND B.MAPHONG = E.MAPHONG";
         return conn.LoadData(sql);
@@ -63,6 +63,12 @@ public class ServiceProcess {
     public void insertBookedServiceBill(String serviceBillId, String serviceId, String quantity) throws SQLException {
         conn.connectSQL();
         String sql = "INSERT INTO CHITIETSDDV(MAPDV, MADV, SOLUONG) VALUES('"+serviceBillId+"','"+serviceId+"','"+quantity+"')";
+        conn.UpdateData(sql);
+    }
+
+    public void deleteBookedServiceBill(String serviceBillId) throws SQLException {
+        conn.connectSQL();
+        String sql = "DELETE FROM CHITIETSDDV WHERE MACHITIETSDDV = '"+serviceBillId+"'";
         conn.UpdateData(sql);
     }
 

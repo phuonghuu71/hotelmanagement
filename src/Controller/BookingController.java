@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,6 +24,7 @@ import resources.AlertMaker;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -75,6 +77,9 @@ public class BookingController implements Initializable {
     public JFXToggleButton toggleReserve;
     public JFXTextField txtCustomerNameSearch_reserved;
     public JFXTextField txtCustomerNameSearch_checkin;
+    public Label lblReserved;
+    public Label lblCheckIn;
+    public JFXTextField txtDiscount;
 
     ObservableList<Customer> customerList = FXCollections.observableArrayList();
     CustomerProcess customerProcess = new CustomerProcess();
@@ -117,6 +122,8 @@ public class BookingController implements Initializable {
             loadReservationList();
             loadCheckInList();
             setDate();
+            setCbProperty();
+            priceProperty(txtDiscount);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -125,18 +132,20 @@ public class BookingController implements Initializable {
     private void setDate() {
         LocalDate date_now = LocalDate.now();
         dtpReverse.setValue(date_now);
+        dtpReverse.setDisable(true);
         dtpCheckIn.setValue(date_now);
         dtpCheckOut.setValue(date_now);
 
         date_diff = ChronoUnit.DAYS.between(dtpCheckIn.getValue(), dtpCheckOut.getValue());
         txtTotalCash.setText(Long.toString(date_diff));
 
+
         dtpCheckIn.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> observableValue, LocalDate localDate, LocalDate t1) {
                 date_diff = ChronoUnit.DAYS.between(dtpCheckIn.getValue(), dtpCheckOut.getValue());
                 money = (roomTypePrice+roomCapacityPrice)*date_diff;
-                txtTotalCash.setText(Double.toString(money));
+                txtTotalCash.setText(currencyChange(money));
             }
         });
 
@@ -145,10 +154,25 @@ public class BookingController implements Initializable {
             public void changed(ObservableValue<? extends LocalDate> observableValue, LocalDate localDate, LocalDate t1) {
                 date_diff = ChronoUnit.DAYS.between(dtpCheckIn.getValue(), dtpCheckOut.getValue());
                 money = (roomTypePrice+roomCapacityPrice)*date_diff;
-                txtTotalCash.setText(Double.toString(money));
+                txtTotalCash.setText(currencyChange(money));
             }
         });
 
+    }
+
+    private void setCbProperty() {
+        cbRoomType.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                cbRoomName.getSelectionModel().select(-1);
+            }
+        });
+        cbRoomCapacity.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                cbRoomName.getSelectionModel().select(-1);
+            }
+        });
     }
 
     private void loadCbRoomType() throws SQLException {
@@ -182,22 +206,6 @@ public class BookingController implements Initializable {
         loadCbRoomCapacity();
     }
 
-    public void handleRoomName(MouseEvent mouseEvent) throws SQLException {
-        cbRoomName.getItems().clear();
-        int roomCapacityID = roomCapacityIDList.get(cbRoomCapacity.getSelectionModel().getSelectedIndex());
-        int roomTypeID = roomTypeIDList.get(cbRoomType.getSelectionModel().getSelectedIndex());
-        ResultSet getRoomlist = roomProcess.getRoomEmptyListByRoomTypeIDAndRoomCapacityID(Integer.toString(roomTypeID), Integer.toString(roomCapacityID));
-        while(getRoomlist.next()) {
-            cbRoomName.getItems().add(getRoomlist.getString(1));
-        }
-
-        roomTypePrice = roomTypePriceList.get(cbRoomType.getSelectionModel().getSelectedIndex());
-        roomCapacityPrice = roomCapacityPriceList.get(cbRoomCapacity.getSelectionModel().getSelectedIndex());
-        money = (roomTypePrice+roomCapacityPrice)*date_diff;
-        this.txtTotalCash.setText(Double.toString(money));
-
-    }
-
     void loadCustomerList() throws SQLException {
         if(tableCustomer != null) {
             customerList.clear();
@@ -217,12 +225,14 @@ public class BookingController implements Initializable {
     }
 
     void loadReservationList() throws SQLException {
+        DateTimeFormatter date_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         if(tableReservation != null) {
             bookingList.clear();
         }
         ResultSet result = bookingProcess.getReserveInfo();
         while (result.next()) {
-            bookingList.add(new Booking(result.getString("SOPHIEUDP"), result.getString("TENKH"), result.getString("TENPHONG"), result.getString("NGAYDATPHONG"), result.getString("NGAYNHANPHONG"), result.getString("NGAYTRAPHONG"), result.getString("TONGTIEN"), result.getString("MAHD")));
+            bookingList.add(new Booking(result.getString("SOPHIEUDP"), result.getString("TENKH"), result.getString("TENPHONG"), date_formatter.format(LocalDate.parse(result.getString("NGAYDATPHONG").substring(0, 10))), date_formatter.format(LocalDate.parse(result.getString("NGAYNHANPHONG").substring(0, 10))), date_formatter.format(LocalDate.parse(result.getString("NGAYTRAPHONG").substring(0, 10))), currencyChange(Double.parseDouble(result.getString("TONGTIEN"))), result.getString("MAHD")));
         }
 
         colReservationID.setCellValueFactory(new PropertyValueFactory<Booking, String>("id"));
@@ -239,12 +249,13 @@ public class BookingController implements Initializable {
     }
 
     void loadCheckInList() throws SQLException {
+        DateTimeFormatter date_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if(tableCheckIn != null) {
             checkInList.clear();
         }
         ResultSet result = bookingProcess.getCheckInInfo();
         while (result.next()) {
-            checkInList.add(new Booking(result.getString("SOPHIEUDP"), result.getString("TENKH"), result.getString("TENPHONG"), result.getString("NGAYDATPHONG"), result.getString("NGAYNHANPHONG"), result.getString("NGAYTRAPHONG"), result.getString("TONGTIEN"), result.getString("MAHD")));
+            checkInList.add(new Booking(result.getString("SOPHIEUDP"), result.getString("TENKH"), result.getString("TENPHONG"), date_formatter.format(LocalDate.parse(result.getString("NGAYDATPHONG").substring(0, 10))), result.getString("NGAYNHANPHONG"), date_formatter.format(LocalDate.parse(result.getString("NGAYTRAPHONG").substring(0, 10))), currencyChange(Double.parseDouble(result.getString("TONGTIEN"))), result.getString("MAHD")));
         }
 
         colCheckInID.setCellValueFactory(new PropertyValueFactory<Booking, String>("id"));
@@ -337,11 +348,6 @@ public class BookingController implements Initializable {
 
     }
 
-    public void handleCustomer(MouseEvent mouseEvent) {
-        String customerName = tableCustomer.getSelectionModel().getSelectedItem().getCustomerName();
-        this.txtCustomerName.setText(customerName);
-    }
-
     private String getStaffIdByName(String fullname) throws SQLException {
         ResultSet getStaffId = staffProcess.getStaffInfoByFullname(fullname);
         String staffId = null;
@@ -360,16 +366,78 @@ public class BookingController implements Initializable {
         return roomId;
     }
 
-    public void handleBooking(MouseEvent mouseEvent) throws SQLException {
-        if(toggleReserve.isSelected()) {
-            checkInAction();
+    private String currencyChange(double curr) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return formatter.format(curr)+ " VNĐ";
+    }
+
+    private void clearInfo() {
+        txtCustomerName.setText("");
+        cbRoomName.setValue("");
+        cbRoomCapacity.setValue("");
+        cbRoomType.setValue("");
+        dtpReverse.setValue(LocalDate.now());
+        dtpCheckIn.setValue(LocalDate.now());
+        dtpCheckOut.setValue(LocalDate.now());
+    }
+
+    private boolean dateCheck() {
+        JFXButton conf_false = new AlertMaker().customBtn("Xác Nhận");
+        if(dtpReverse.getValue().isBefore(LocalDate.now())) {
+            AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf_false), "Thất bại", "Ngày đặt phòng không hợp lệ");
+            return false;
         }
-        else {
-            reserveAction();
+        if(dtpCheckIn.getValue().isBefore(LocalDate.now())) {
+            AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf_false), "Thất bại", "Ngày nhận phòng không hợp lệ");
+            return false;
         }
+        if(dtpCheckOut.getValue().isBefore(LocalDate.now()) || dtpCheckOut.getValue().isEqual(LocalDate.now())) {
+            AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf_false), "Thất bại", "Ngày trả phòng không hợp lệ");
+            return false;
+        }
+
+        if(dtpCheckIn.getValue().isAfter(dtpCheckOut.getValue())) {
+            AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf_false), "Thất bại", "Ngày nhận phòng phải lớn hơn ngày trả phòng");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkInput() {
+        if(txtCustomerName.getText().equals("") || txtCustomerName.getText().length() <= 0) {
+            return false;
+        }
+        if(cbRoomName.getSelectionModel().isEmpty()) {
+            return false;
+        }
+        if(cbRoomCapacity.getSelectionModel().isEmpty()) {
+            return false;
+        }
+        if(cbRoomType.getSelectionModel().isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     private void reserveAction() throws SQLException {
+
+        if(!checkInput()) {
+            JFXButton conf_false = new AlertMaker().customBtn("Xác Nhận");
+            AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf_false), "Thất bại", "Chưa nhập đủ thông tin");
+            return;
+        }
+
+        if(!dateCheck()) {
+            return;
+        }
+
+        if(Double.parseDouble(txtDiscount.getText()) >= 100) {
+            JFXButton conf_false = new AlertMaker().customBtn("Xác Nhận");
+            AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf_false), "Thất bại", "Giảm giá quá cao");
+            return;
+        }
+
         DateTimeFormatter date_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter hour_formatter = DateTimeFormatter.ofPattern("kk:mm");
 
@@ -400,20 +468,50 @@ public class BookingController implements Initializable {
             bookingServiceId = getLastBookingService.getString("MAPDV");
         }
 
-        bookingProcess.insertBookingBill(reservationDate,bookingId,bookingServiceId,txtTotalCash.getText());
+        bookingProcess.insertBookingBill(reservationDate,bookingId,bookingServiceId, Double.toString(money-money*Double.parseDouble(txtDiscount.getText())/100));
 
         bookingProcess.updateBookingReservation(roomId);
 
         loadCustomerList();
         loadReservationList();
         loadCheckInList();
+        clearInfo();
 
         JFXButton conf = new AlertMaker().customBtn("Đồng Ý");
         AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf), "Thành Công", "Đặt trước thành công");
 
     }
 
+    private void priceProperty(JFXTextField text) {
+        text.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(!t1.matches("\\d*"));
+                text.setText(t1.replaceAll("[^\\d]", ""));
+            }
+        });
+
+    }
+
+
     private void checkInAction() throws SQLException {
+
+        if(!checkInput()) {
+            JFXButton conf_false = new AlertMaker().customBtn("Xác Nhận");
+            AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf_false), "Thất bại", "Chưa nhập đủ thông tin");
+            return;
+        }
+
+        if(!dateCheck()) {
+            return;
+        }
+
+        if(Double.parseDouble(txtDiscount.getText()) >= 100) {
+            JFXButton conf_false = new AlertMaker().customBtn("Xác Nhận");
+            AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf_false), "Thất bại", "Giảm giá quá cao");
+            return;
+        }
+
         DateTimeFormatter date_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter hour_formatter = DateTimeFormatter.ofPattern("kk:mm");
 
@@ -441,6 +539,11 @@ public class BookingController implements Initializable {
             info += "Giảm 30% (9h - 14h)";
         }
 
+        if(Double.parseDouble(txtDiscount.getText()) > 0) {
+            info += "Đã giảm giá thêm "+txtDiscount.getText()+"%";
+        }
+
+
         String roomName = cbRoomName.getSelectionModel().getSelectedItem().toString();
 
         ResultSet getRoomPriceByName = bookingProcess.getRoomPriceByRoomName(roomName);
@@ -455,7 +558,7 @@ public class BookingController implements Initializable {
 
         double roomPrice = roomTypePrice + roomCapacityPrice;
         double roomPrice_tmp = roomPrice;
-        roomPrice_tmp = roomPrice_tmp*date_diff - roomPrice*discount;
+        roomPrice_tmp = roomPrice_tmp*date_diff - roomPrice*discount - roomPrice*Double.parseDouble(txtDiscount.getText())/100;
         roomPrice = roomPrice_tmp;
 
         String roomId = getRoomIdByName(roomName);
@@ -487,9 +590,19 @@ public class BookingController implements Initializable {
         loadCustomerList();
         loadReservationList();
         loadCheckInList();
+        clearInfo();
 
         JFXButton conf = new AlertMaker().customBtn("Đồng Ý");
         AlertMaker.showMaterialDialog(stackpaneBooking, Arrays.asList(conf), "Thành Công", info);
+    }
+
+    public void handleBooking(MouseEvent mouseEvent) throws SQLException {
+        if(toggleReserve.isSelected()) {
+            checkInAction();
+        }
+        else {
+            reserveAction();
+        }
     }
 
     public void handleCheckIn(MouseEvent mouseEvent) throws SQLException {
@@ -551,7 +664,6 @@ public class BookingController implements Initializable {
 
     }
 
-
     public void handleTableReservation(MouseEvent mouseEvent) {
         String customerName = tableReservation.getSelectionModel().getSelectedItem().getCustomerName();
         txtCustomerName_list.setText(customerName);
@@ -564,12 +676,16 @@ public class BookingController implements Initializable {
             btnBooking.setText("NHẬN PHÒNG");
             dtpReverse.setVisible(false);
             dtpCheckIn.setVisible(false);
+            lblReserved.setVisible(false);
+            lblCheckIn.setVisible(false);
         }
         else {
             toggleReserve.setText("Đặt trước phòng");
             btnBooking.setText("ĐẶT TRƯỚC PHÒNG");
             dtpReverse.setVisible(true);
             dtpCheckIn.setVisible(true);
+            lblReserved.setVisible(true);
+            lblCheckIn.setVisible(true);
         }
     }
 
@@ -582,6 +698,31 @@ public class BookingController implements Initializable {
         bookingProcess.deleteBookingServiceByRoomID(roomID);
         roomProcess.updateRoomStatusCheckOut(roomID);
         loadReservationList();
+    }
+
+    public void handleCustomer(MouseEvent mouseEvent) {
+        String customerName = tableCustomer.getSelectionModel().getSelectedItem().getCustomerName();
+        this.txtCustomerName.setText(customerName);
+    }
+
+    public void handleRoomName(MouseEvent mouseEvent) throws SQLException {
+        cbRoomName.getItems().clear();
+        int roomCapacityID = roomCapacityIDList.get(cbRoomCapacity.getSelectionModel().getSelectedIndex());
+        int roomTypeID = roomTypeIDList.get(cbRoomType.getSelectionModel().getSelectedIndex());
+        ResultSet getRoomlist = roomProcess.getRoomEmptyListByRoomTypeIDAndRoomCapacityID(Integer.toString(roomTypeID), Integer.toString(roomCapacityID));
+        while(getRoomlist.next()) {
+            cbRoomName.getItems().add(getRoomlist.getString(1));
+        }
+
+        roomTypePrice = roomTypePriceList.get(cbRoomType.getSelectionModel().getSelectedIndex());
+        roomCapacityPrice = roomCapacityPriceList.get(cbRoomCapacity.getSelectionModel().getSelectedIndex());
+        money = (roomTypePrice+roomCapacityPrice)*date_diff;
+        this.txtTotalCash.setText(currencyChange(money));
+
+    }
+
+    public void handleCancleBooking(MouseEvent mouseEvent) {
+        clearInfo();
     }
 }
 

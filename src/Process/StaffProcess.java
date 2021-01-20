@@ -81,4 +81,10 @@ public class StaffProcess {
         conn.UpdateData(sql);
     }
 
+    public void changePasswordByUsername(String password, String username) throws SQLException {
+        conn.connectSQL();
+        String sql = "UPDATE NHANVIEN SET MATKHAU = HASHBYTES('MD5','"+password+"') WHERE TENDANGNHAP = '"+username+"'";
+        conn.UpdateData(sql);
+    }
+
 }

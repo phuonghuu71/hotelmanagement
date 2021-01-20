@@ -16,5 +16,14 @@
     <orderEntry type="library" name="animateFX-1.2.2" level="project" />
     <orderEntry type="library" name="javax.mail" level="project" />
     <orderEntry type="library" name="activation" level="project" />
+    <orderEntry type="library" name="jasperreports-fonts-6.16.0" level="project" />
+    <orderEntry type="library" name="jasperreports-6.16.0" level="project" />
+    <orderEntry type="library" name="jasperreports-javaflow-6.16.0" level="project" />
+    <orderEntry type="library" name="commons-logging-1.2" level="project" />
+    <orderEntry type="library" name="commons-beanutils-1.9.4" level="project" />
+    <orderEntry type="library" name="commons-collections4-4.4" level="project" />
+    <orderEntry type="library" name="commons-digester-2.1" level="project" />
+    <orderEntry type="library" name="itext-2.1.7" level="project" />
+    <orderEntry type="library" name="itextpdf-5.5.9" level="project" />
   </component>
 </module>

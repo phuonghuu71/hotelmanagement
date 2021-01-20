@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -35,7 +36,7 @@
                                  </font>
                               </JFXButton>
                               <JFXDatePicker fx:id="dtpReverse" layoutX="275.0" layoutY="152.0" prefWidth="230.0" promptText="Ngày đặt phòng" AnchorPane.topAnchor="152.0" />
-                              <JFXButton fx:id="btnCancel" layoutX="764.0" layoutY="453.0" prefHeight="50.0" prefWidth="100.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="HỦY" textFill="WHITE">
+                              <JFXButton fx:id="btnCancel" layoutX="764.0" layoutY="453.0" onMouseClicked="#handleCancleBooking" prefHeight="50.0" prefWidth="100.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="HỦY" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -51,6 +52,10 @@
                               <JFXTextField fx:id="txtCustomerName" focusColor="#40a85d" labelFloat="true" layoutX="14.0" layoutY="60.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Khách" unFocusColor="#17e52f" />
                               <JFXTextField fx:id="txtStaffName" focusColor="#40a85d" labelFloat="true" layoutX="275.0" layoutY="62.0" prefHeight="40.0" prefWidth="230.0" promptText="Tên Nhân Viên" unFocusColor="#17e52f" />
                               <JFXToggleButton fx:id="toggleReserve" layoutX="14.0" layoutY="371.0" onMouseClicked="#handleReserve" text="Đặt trước phòng" />
+                              <Label fx:id="lblReserved" layoutX="275.0" layoutY="132.0" text="Ngày đặt phòng" />
+                              <Label fx:id="lblCheckIn" layoutX="275.0" layoutY="202.0" text="Ngày nhận phòng" />
+                              <Label layoutX="275.0" layoutY="272.0" text="Ngày trả phòng" />
+                              <JFXTextField fx:id="txtDiscount" focusColor="#40a85d" labelFloat="true" layoutX="275.0" layoutY="340.0" prefHeight="40.0" prefWidth="230.0" promptText="Giảm giá (%)" text="0" unFocusColor="#17e52f" AnchorPane.topAnchor="362.0" />
                            </children>
                         </AnchorPane>
                      </children>

@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckOutController">
@@ -19,7 +20,7 @@
             <TableColumn fx:id="colRoomName" minWidth="0.0" prefWidth="119.20001220703125" text="PHÒNG" />
          </columns>
       </TableView>
-      <JFXTextField fx:id="txtStaffName1" focusColor="#40a85d" labelFloat="true" layoutX="14.0" layoutY="28.0" prefHeight="40.0" prefWidth="230.0" promptText="Tìm kiếm khách" unFocusColor="#17e52f" />
+      <JFXTextField fx:id="txtCheckOutSearch" focusColor="#40a85d" labelFloat="true" layoutX="14.0" layoutY="28.0" prefHeight="40.0" prefWidth="230.0" promptText="Tìm kiếm khách" unFocusColor="#17e52f" />
       <AnchorPane layoutX="636.0" layoutY="14.0" prefHeight="550.0" prefWidth="260.0" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;">
          <children>
             <JFXDatePicker fx:id="dtpReverse" layoutX="15.0" layoutY="40.0" prefWidth="230.0" promptText="Ngày đặt phòng" />
@@ -32,12 +33,21 @@
             <JFXTextField fx:id="txtServicePrice" focusColor="#40a85d" labelFloat="true" layoutX="15.0" layoutY="410.0" prefHeight="40.0" prefWidth="230.0" promptText="Phụ Thu Dịch Vụ (nếu có)" unFocusColor="#17e52f" />
             <Label layoutX="14.0" layoutY="257.0" text="Giờ hiện tại" />
             <Label layoutX="14.0" layoutY="202.0" text="Ngày hiện tại" />
+            <Label layoutX="15.0" layoutY="22.0" text="Ngày đặt phòng" />
+            <Label layoutX="15.0" layoutY="82.0" text="Ngày nhận phòng" />
+            <Label layoutX="15.0" layoutY="143.0" text="Ngày trả phòng" />
          </children>
       </AnchorPane>
-      <JFXButton fx:id="btnCheckOut" layoutX="354.0" layoutY="454.0" onMouseClicked="#handleCheckOut" prefHeight="50.0" prefWidth="180.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="TRẢ PHÒNG" textFill="WHITE">
+      <JFXButton fx:id="btnCheckOut" layoutX="228.0" layoutY="453.0" onMouseClicked="#handleCheckOut" prefHeight="50.0" prefWidth="180.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="TRẢ PHÒNG" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </JFXButton>
+      <JFXButton fx:id="btnCancelCheckout" layoutX="423.0" layoutY="453.0" onMouseClicked="#handleCancelCheckOut" prefHeight="50.0" prefWidth="110.0" ripplerFill="#689c63" style="-fx-background-color: RED; -fx-background-radius: 20;" text="HỦY" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
+      <StackPane fx:id="stackpaneCheckout" prefHeight="0.0" prefWidth="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="200.0" />
    </children>
 </AnchorPane>

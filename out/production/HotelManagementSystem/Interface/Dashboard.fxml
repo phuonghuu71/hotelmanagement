@@ -178,7 +178,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" onMouseClicked="#handleServiceHbox" prefHeight="50.0" prefWidth="260.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
+                              <HBox fx:id="serviceManagingHbox" alignment="CENTER_LEFT" onMouseClicked="#handleServiceHbox" prefHeight="50.0" prefWidth="260.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
                                  <children>
                                     <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -201,7 +201,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" onMouseClicked="#handleReportHbox" prefHeight="50.0" prefWidth="260.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
+                              <HBox fx:id="reportHbox" alignment="CENTER_LEFT" onMouseClicked="#handleReportHbox" prefHeight="50.0" prefWidth="260.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
                                  <children>
                                     <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -334,6 +334,33 @@
                               <Insets left="7.0" />
                            </padding>
                         </HBox>
+                        <HBox fx:id="changePasswordHbox" onMouseClicked="#handleChangePasswordHbox" prefHeight="50.0" prefWidth="214.0" stylesheets="@../resources/style/dashboard.css">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="270.0" style="-fx-background-radius: 15 0 0 15; -fx-border-radius: 15 0 0 15;" styleClass="menu_box" stylesheets="@../resources/style/dashboard.css">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../resources/images/money-check-solid.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <Label text="Đổi mật khẩu" textFill="WHITE">
+                                       <font>
+                                          <Font name="SansSerif Regular" size="30.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="7.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
@@ -347,6 +374,13 @@
                <BorderPane.margin>
                   <Insets bottom="20.0" right="20.0" top="10.0" />
                </BorderPane.margin>
+               <center>
+                  <ImageView fitHeight="181.0" fitWidth="200.0" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@../resources/images/NicePng_green-leaf-design-png_9521126.png" />
+                     </image>
+                  </ImageView>
+               </center>
             </BorderPane>
          </center>
       </BorderPane>

@@ -1,5 +1,7 @@
 package Database;
 
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +21,14 @@ public class DBConnect {
         } catch (ClassNotFoundException e) {
 //            JOptionPane.showMessageDialog(null, "Kết nối CSDL thất bại", "Thông báo", 1);
         }
+    }
+
+    public Connection getConn() {
+        return conn;
+    }
+
+    public void setConn(Connection conn) {
+        this.conn = conn;
     }
 
     public ResultSet LoadData(String sql) {
