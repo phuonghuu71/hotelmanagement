@@ -127,7 +127,7 @@ public class ReportController implements Initializable {
     }
 
     public void handlePrintReport(MouseEvent mouseEvent) throws JRException, SQLException, FileNotFoundException {
-        String reportSrc = "C:/Users/UwU/IdeaProjects/HotelManagement/src/resources/report/hotel.jrxml";
+        String reportSrc = "src/resources/report/hotel.jrxml";
 
         JasperDesign jasperDesign = JRXmlLoader.load(reportSrc);
 

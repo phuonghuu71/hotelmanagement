@@ -1,0 +1,27 @@
+Chạy bằng Intelliji
+File->Project Structure->library
+import tất cả thư viện trong thư mục libs
+riêng thư mục openjx chỉ cần import thư mục lib bên trong 
+run->edit configurations->VM Options (ở dưới chữ modify options), add tất cả dòng:
+
+--module-path
+C:\Users\UwU\IdeaProjects\HotelManagement\libs\openjfx-11.0.2_windows-x64_bin-sdk\javafx-sdk-11.0.2\lib(thay đổi đường dẫn)
+--add-modules
+javafx.controls,javafx.fxml
+--add-exports
+javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED
+--add-opens
+javafx.base/com.sun.javafx.runtime=ALL-UNNAMED
+--add-opens
+javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED
+--add-opens
+javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED
+--add-opens
+javafx.base/com.sun.javafx.binding=ALL-UNNAMED
+--add-opens
+javafx.base/com.sun.javafx.event=ALL-UNNAMED
+--add-opens
+javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED
+
+import database bằng file hoteldatabase.sql
+vào src\Database\DBConnect.java thay đổi tên server, username và password

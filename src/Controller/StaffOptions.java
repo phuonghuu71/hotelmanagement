@@ -22,6 +22,9 @@ public class StaffOptions implements Initializable {
     public JFXPasswordField txtNewPassword;
     public StackPane stackpaneChangePassword;
 
+    private String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+
+
     StaffProcess staffProcess = new StaffProcess();
 
     @Override
@@ -48,6 +51,12 @@ public class StaffOptions implements Initializable {
         if(validate == 0) {
             JFXButton conf = new AlertMaker().customBtn("Đồng Ý");
             AlertMaker.showMaterialDialog(stackpaneChangePassword, Arrays.asList(conf), "Thất bại", "Mật khẩu cũ không đúng");
+            return;
+        }
+
+        if(!newPassword.matches(pattern)) {
+            JFXButton conf = new AlertMaker().customBtn("Đồng Ý");
+            AlertMaker.showMaterialDialog(stackpaneChangePassword, Arrays.asList(conf), "Thất bại", "Định dạng mật khẩu không đúng");
             return;
         }
 
