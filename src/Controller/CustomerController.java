@@ -6,6 +6,7 @@ import Process.CustomerProcess;
 import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -105,17 +106,17 @@ public class CustomerController implements Initializable {
                 String customerPhone = customerAddController.txtCustomerPhone.getText();
 
                 if(customerName == null || customerName.length() <= 0) {
-                    AlertMaker.showMaterialDialog(customerAddController.stackpaneCustomerAdd, Arrays.asList(conf), "Thất Bại", "Chưa nhập tên khách");
+                    AlertMaker.showMaterialDialog(customerAddController.stackpaneCustomer, Arrays.asList(conf), "Thất Bại", "Chưa nhập tên khách");
                     return;
                 }
 
                 if(customerIdentityID == null || customerIdentityID.length() <= 0) {
-                    AlertMaker.showMaterialDialog(customerAddController.stackpaneCustomerAdd, Arrays.asList(conf), "Thất Bại", "Chưa nhập CMND");
+                    AlertMaker.showMaterialDialog(customerAddController.stackpaneCustomer, Arrays.asList(conf), "Thất Bại", "Chưa nhập CMND");
                     return;
                 }
 
                 if(customerPhone == null || customerPhone.length() <= 0) {
-                    AlertMaker.showMaterialDialog(customerAddController.stackpaneCustomerAdd, Arrays.asList(conf), "Thất Bại", "Chưa nhập SĐT");
+                    AlertMaker.showMaterialDialog(customerAddController.stackpaneCustomer, Arrays.asList(conf), "Thất Bại", "Chưa nhập SĐT");
                     return;
                 }
 
@@ -134,7 +135,7 @@ public class CustomerController implements Initializable {
                         customerAddController.closeStage();
                     }
                 });
-                AlertMaker.showMaterialDialog(customerAddController.stackpaneCustomerAdd, Arrays.asList(agree), "Thành Công", "Thêm khách thành công");
+                AlertMaker.showMaterialDialog(customerAddController.stackpaneCustomer, Arrays.asList(agree), "Thành Công", "Thêm khách thành công");
             }
         });
 
@@ -171,6 +172,41 @@ public class CustomerController implements Initializable {
 
     }
 
+    public void handleCustomerDelete(MouseEvent mouseEvent) throws SQLException {
+
+        JFXButton ok = new AlertMaker().customBtn("Đồng Ý");
+        String header = "Thành công";
+        String body = "Xóa khách thành công";
+
+        String customerId = this.txtCustomerID.getText();
+
+        if(this.txtCustomerID.getText().isEmpty()) {
+            header = "Thất bại";
+            body = "Chưa chọn khách";
+            AlertMaker.showMaterialDialog(stackpaneCustomer, Arrays.asList(ok), header, body);
+            return;
+        }
+
+        try {
+            customerProcess.deleteCustomer(customerId);
+        }
+        catch (SQLServerException e) {
+            header = "Thất bại";
+            body = "Xóa khách thất bại";
+            AlertMaker.showMaterialDialog(stackpaneCustomer, Arrays.asList(ok), header, body);
+            return;
+        }
+        clearCustomer();
+        loadCustomer();
+
+        AlertMaker.showMaterialDialog(stackpaneCustomer, Arrays.asList(ok), header, body);
+
+
+
+
+    }
+
+
     public void handleCustomerTable(MouseEvent mouseEvent) {
         Customer customer = tableCustomer.getSelectionModel().getSelectedItem();
         this.txtCustomerID.setText(customer.getId());
@@ -178,5 +214,6 @@ public class CustomerController implements Initializable {
         this.txtIdentityID.setText(customer.getCustomerIdentityCard());
         this.txtPhone.setText(customer.getPhoneNumber());
     }
+
 
 }

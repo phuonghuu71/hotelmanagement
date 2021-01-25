@@ -11,7 +11,7 @@ public class CustomerAddController {
     public JFXTextField txtCustomerPhone;
     public JFXButton btnConfirmAddCustomer;
     public JFXButton btnCancelAddCustomer;
-    public StackPane stackpaneCustomerAdd;
+    public StackPane stackpaneCustomer;
 
     private CustomerController customerController;
 

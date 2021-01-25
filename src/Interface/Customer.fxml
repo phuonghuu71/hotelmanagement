@@ -37,5 +37,10 @@
          </font>
       </JFXButton>
       <StackPane fx:id="stackpaneCustomer" prefHeight="0.0" prefWidth="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="200.0" />
+      <JFXButton fx:id="btnDeleteCustomer" layoutX="350.0" layoutY="380.0" onMouseClicked="#handleCustomerDelete" prefHeight="50.0" prefWidth="150.0" ripplerFill="#689c63" style="-fx-background-color: #a8cf45; -fx-background-radius: 20;" text="XÓA KHÁCH" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

@@ -27,4 +27,10 @@ public class CustomerProcess {
         conn.UpdateData(sql);
     }
 
+    public void deleteCustomer(String customerID) throws SQLException {
+        conn.connectSQL();
+        String sql = "DELETE KHACH WHERE MAKH = '"+customerID+"'";
+        conn.UpdateData(sql);
+    }
+
 }
