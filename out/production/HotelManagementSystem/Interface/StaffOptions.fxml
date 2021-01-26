@@ -15,8 +15,8 @@
             <Font size="15.0" />
          </font>
       </JFXButton>
-      <StackPane fx:id="stackpaneChangePassword" layoutX="251.0" layoutY="175.0" prefHeight="0.0" prefWidth="328.0" AnchorPane.topAnchor="175.0" />
       <JFXPasswordField fx:id="txtOldPassword" focusColor="#a8cf45" labelFloat="true" layoutX="299.0" layoutY="181.0" prefHeight="38.0" prefWidth="231.0" promptText="Mật Khẩu cũ" unFocusColor="BLACK" AnchorPane.topAnchor="195.0" />
       <JFXPasswordField fx:id="txtNewPassword" focusColor="#a8cf45" labelFloat="true" layoutX="299.0" layoutY="260.0" prefHeight="38.0" prefWidth="231.0" promptText="Mật Khẩu mới" unFocusColor="BLACK" AnchorPane.topAnchor="265.0" />
+      <StackPane fx:id="stackpaneChangePassword" layoutX="251.0" layoutY="175.0" prefHeight="0.0" prefWidth="328.0" AnchorPane.topAnchor="175.0" />
    </children>
 </AnchorPane>
